@@ -18,10 +18,10 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar fixed-top navbar-expand-md  navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand d-flex ps-5" href="{{ url('/') }}">
-                    <div><img src="/svg/freeCodeCampLogo.svg" alt="logo" style="height: 25px; border-right: 1px solid #000000" class="pe-3"></div>
+                    <div><img src="/svg/codegram.svg" alt="logo" style="height: 25px; border-right: 1px solid #000000" class="pe-3"></div>
                     <div class="ps-3 pt-1">CodeGram</div>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
