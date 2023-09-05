@@ -10,6 +10,6 @@ class Post extends Model
     protected $guarded = [];
     use HasFactory;
     public function user(){
-        return $this->belongsTo('App\Models\User', 'user_id');
+        return $this->belongsTo('App\Models\User');
     }
 }
