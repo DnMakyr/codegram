@@ -10,14 +10,15 @@
 
             <div class="col-9 pt-5">
                 <div class="d-flex justify-content-between align-items-baseline">
-                    <h1>{{ $user->username }}</h1>
+                    <h2>{{ $user->username }}</h2>
                     <div class="d-flex">
+                        <div><follow-button></div>
                         @can('update', $user->profile)
-                        <a href="/p/create" class="btn btn-primary btn-sm " style="margin-right: 10px">Add New Post</a>
+                        <a href="/p/create" class="btn btn-primary btn-md " style="margin-right: 5px">Add New Post</a>
                         @endcan
 
                         @can('update', $user->profile)
-                        <a href="/profile/{{ $user->id }}/edit" class="btn btn-primary btn-sm">Edit Profile</a>
+                        <a href="/profile/{{ $user->id }}/edit" class="btn btn-primary btn-md">Edit Profile</a>
                         @endcan
                     </div>
                 </div>
