@@ -36,11 +36,13 @@
                 {{-- @endif    --}}
             </div>
         </div>
+        <hr>
+        <div class="row p-2"></div>
         <div class="row pt-4">
             @foreach ($user->posts as $post)
                 <div class="col-4 pb-4">
                     <a href="/p/{{ $post->id }} "><img src="/storage/{{ $post->image }}" alt=""
-                            class="w-100 pe-2" style=""></a>
+                            class="w-100 me-2" style="border-radius: 8px; border-collapse: separate; height: 416px; width:416px; object-fit: cover"></a>
                 </div>
             @endforeach
         </div>
