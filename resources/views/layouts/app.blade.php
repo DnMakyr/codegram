@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,23 +9,54 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>CodeGram</title>
-
+    <link rel="icon" href="/svg/codegram.svg" type="image/icon type">
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-
-    <!-- Scripts -->
+    <script type="text/javascript" src="{{ asset('js/followButton.js') }}"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.js"
+        integrity="sha512-kFoMebJcPxdfDstjuwbbJN3q7hQ6O6npC9exDmbTR7HZZUC50s7DKl/MJSiukySAolVrcVmaLRHTmRjwnGCFow=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
+    {{-- <script>
+        // Define a variable to track the follow state
+        let isFollowing = false;
+        // Function to toggle the follow state
+        function toggleFollow() {
+            const followButton = document.getElementById("followButton");
+            const userId = document.getElementById('followButton').getAttribute('user-id');
+            if (isFollowing) {
+                followButton.textContent = "Follow";
+                followButton.style.backgroundColor = "#0275d8";
+                followButton.style.color = "white";
+                followButton.style.borderStyle = "none";
+            } else {
+                followButton.textContent = "Following";
+                followButton.style.color = "black";
+                followButton.style.backgroundColor = "#D3D3D3";
+                axios.post('/follow/' + userId).then(response => {
+                    alert(response.data);
+                });
+            }
+            isFollowing = !isFollowing;
+        }
+    </script> --}}
+    <link rel="stylesheet" href="{{ url('css/app.css') }}">
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
 </head>
+
 <body>
     <div id="app">
         <nav class="navbar fixed-top navbar-expand-md  navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand d-flex ps-5" href="{{ url('/') }}">
-                    <div><img src="/svg/codegram.svg" alt="logo" style="height: 25px; border-right: 1px solid #000000" class="pe-3"></div>
+                    <div><img src="/svg/codegram.svg" alt="logo"
+                            style="height: 25px; border-right: 1px solid #000000" class="pe-3"></div>
                     <div class="ps-3 pt-1">CodeGram</div>
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -51,13 +83,15 @@
                             @endif
                         @else
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="/profile/{{ Auth::user()->id }}" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle"
+                                    href="/profile/{{ Auth::user()->id }}" role="button" data-bs-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->username }}
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
+                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
@@ -72,10 +106,29 @@
                 </div>
             </div>
         </nav>
-
+        {{-- <nav>
+            <ul>
+                <li>
+                    <a href="#"><img src="" alt=""></a>
+                </li>
+                <li>
+                    <a href="#"></a>
+                </li>
+                <li>
+                    <a href="#"><img src="" alt=""></a>
+                </li>
+                <li>
+                    <a href="#"><img src="" alt=""></a>
+                </li>
+                <li>
+                    <a href="#"><img src="" alt=""></a>
+                </li>
+            </ul>
+        </nav> --}}
         <main class="py-4">
             @yield('content')
         </main>
     </div>
 </body>
+
 </html>

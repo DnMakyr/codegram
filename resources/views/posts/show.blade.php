@@ -3,8 +3,8 @@
 @section('content')
     <div class="container pt-5">
         <div class="row">
-            <div class="col-8 justify-content-evenly" >
-                <img src="/storage/{{ $post->image }}" alt="" class="fluid" style="width: 700px; height: 800px; object-fit: contain">
+            <div class="col-8 justify-content-evenly" style="object-fit: cover">
+                <img src="/storage/{{ $post->image }}" alt="" class="w-100">
             </div>
             <div class="col-4">
                 <div>

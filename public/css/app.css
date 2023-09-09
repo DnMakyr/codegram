@@ -1,0 +1,4 @@
+button.no-focus-outline:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
