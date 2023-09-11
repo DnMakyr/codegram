@@ -18,17 +18,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 Auth::routes();
 
 Route::post('follow/{user}', [FollowsController::class, 'store']);
 
+Route::get('/', [PostsController::class, 'index']);
 Route::get('/p/create', [PostsController::class, 'create']);
 Route::get('/p/{post}', [PostsController::class, 'show']);
-Route::post('/p',[PostsController::class, 'store']);
+Route::post('/p', [PostsController::class, 'store']);
 
 Route::get('/profile/{user}', [HomeController::class, 'index'])->name('profile.show');
 Route::get('/profile/{user}', [App\Http\Controllers\ProfilesController::class, 'index'])->name('profile.show');

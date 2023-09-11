@@ -1,33 +1,68 @@
-// import axios from "axios";
-// Define a variable to track the follow state
-let isFollowing = false;
-// Function to toggle the follow state
+// Save follow state to local storage when toggling
 function toggleFollow() {
     const followButton = document.getElementById("followButton");
-    const userId = document
-        .getElementById("followButton")
-        .getAttribute("user-id");
+    const userId = followButton.getAttribute("user-id");
+    const follows = followButton.getAttribute("follows");
 
-    if (isFollowing) {
+    // Toggle the 'follows' attribute
+    followButton.setAttribute("follows", follows === "true" ? "false" : "true");
+
+    // Function to update follow state in local storage
+    function updateLocalStorage(follows) {
+        localStorage.setItem(
+            `followState_${userId}`,
+            follows ? "true" : "false"
+        );
+    }
+
+    if (follows === "true") {
+        updateLocalStorage(false);
         followButton.textContent = "Follow";
         followButton.style.backgroundColor = "#0275d8";
         followButton.style.color = "white";
         followButton.style.borderStyle = "none";
-        axios.post("/follow/" + userId).then((response) => {
-            console.log(response.data);
-        });
-        
-        
+
+        // Remove the following-button class
+        followButton.classList.remove("following-button");
+
+        axios
+            .post("/follow/" + userId)
+            .then((response) => {
+                console.log(response.data);
+            })
+            .catch((error) => {
+                if (error.response && error.response.status === 401) {
+                    window.location = "/login";
+                }
+            });
     } else {
+        updateLocalStorage(true);
         followButton.textContent = "Following";
-        followButton.style.color = "black";
-        followButton.style.backgroundColor = "#D3D3D3";
-        axios.post("/follow/" + userId).then((response) => {
-            console.log(response.data);
-        });
+
+        // Add the following-button class
+        followButton.classList.add("following-button");
+
+        axios
+            .post("/follow/" + userId)
+            .then((response) => {
+                console.log(response.data);
+            })
+            .catch((error) => {
+                if (error.response && error.response.status === 401) {
+                    window.location = "/login";
+                }
+            });
     }
-    // axios.post('/follow/' + userId).then(response => {
-    //     console.log(response.data);
-    // });
-    isFollowing = !isFollowing;
 }
+
+// Retrieve follow state from local storage when the page loads
+window.addEventListener("load", () => {
+    const followButton = document.getElementById("followButton");
+    const userId = followButton.getAttribute("user-id");
+
+    const storedFollowState = localStorage.getItem(`followState_${userId}`);
+    if (storedFollowState === "true") {
+        followButton.classList.add("following-button");
+        followButton.textContent = "Following";
+    }
+});

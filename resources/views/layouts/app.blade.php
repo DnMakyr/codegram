@@ -14,33 +14,16 @@
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <script type="text/javascript" src="{{ asset('js/followButton.js') }}"></script>
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.js"
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.js"
         integrity="sha512-kFoMebJcPxdfDstjuwbbJN3q7hQ6O6npC9exDmbTR7HZZUC50s7DKl/MJSiukySAolVrcVmaLRHTmRjwnGCFow=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
-    {{-- <script>
-        // Define a variable to track the follow state
-        let isFollowing = false;
-        // Function to toggle the follow state
-        function toggleFollow() {
-            const followButton = document.getElementById("followButton");
-            const userId = document.getElementById('followButton').getAttribute('user-id');
-            if (isFollowing) {
-                followButton.textContent = "Follow";
-                followButton.style.backgroundColor = "#0275d8";
-                followButton.style.color = "white";
-                followButton.style.borderStyle = "none";
-            } else {
-                followButton.textContent = "Following";
-                followButton.style.color = "black";
-                followButton.style.backgroundColor = "#D3D3D3";
-                axios.post('/follow/' + userId).then(response => {
-                    alert(response.data);
-                });
-            }
-            isFollowing = !isFollowing;
-        }
-    </script> --}}
-    <link rel="stylesheet" href="{{ url('css/app.css') }}">
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        {{-- <script>
+            // Get the current user's ID from Laravel's authentication system
+            const currentUserId = {{ Auth::check() ? Auth::user()->id : 'null' }};
+        
+            // Use currentUserId in your JavaScript code
+        </script> --}}
+    <link rel="stylesheet" href="{{ url('css/followButton.css') }}">
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
 </head>
