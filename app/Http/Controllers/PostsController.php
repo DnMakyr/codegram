@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use GuzzleHttp\Middleware;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 use Intervention\Image\Facades\Image;
-use PhpParser\Node\Expr\FuncCall;
+use Illuminate\Auth\Middleware\Authenticate;
 
 class PostsController extends Controller
 {
@@ -15,12 +15,15 @@ class PostsController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $users = auth()->user()->following()->pluck('profiles.user_id');
-        $posts = Post::whereIn('user_id', $users)->get();
+        $posts = Post::whereIn('user_id', $users)->with('user')->latest()->paginate(4);
+        // if ($request->ajax()) {
+        //     $view = view('posts.load', compact('posts'))->render();
+        //     return Response::json(['view' => $view, 'nextPageUrl' => $posts->nextPageUrl()]);
+        // }
 
-        // dd($posts);
         return view('posts.index', compact('posts'));
     }
     //

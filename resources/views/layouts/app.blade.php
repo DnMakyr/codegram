@@ -13,11 +13,13 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-    <script type="text/javascript" src="{{ asset('js/followButton.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.js"
         integrity="sha512-kFoMebJcPxdfDstjuwbbJN3q7hQ6O6npC9exDmbTR7HZZUC50s7DKl/MJSiukySAolVrcVmaLRHTmRjwnGCFow=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        {{-- <script>
+    <script type="text/javascript" src="{{ asset('js/followButton.js') }}"></script>
+    {{-- <script>
             // Get the current user's ID from Laravel's authentication system
             const currentUserId = {{ Auth::check() ? Auth::user()->id : 'null' }};
         
@@ -112,6 +114,41 @@
             @yield('content')
         </main>
     </div>
+
+    {{-- <script>
+        $(document).ready(function() {
+            let nextPageUrl = "{{ $posts->nextPageUrl() }}";
+
+            $(window).scroll(function() {
+                if (
+                    $(window).scrollTop() + $(window).height() >=
+                    $(document).height() - 100
+                )
+                    if (nextPageUrl) {
+                        loadMorePosts(nextPageUrl);
+                    }
+            });
+        });
+
+        function loadMorePosts(nextPageUrl) {
+            $.ajax({
+                url: nextPageUrl,
+                type: "get",
+                beforeSend: function() {
+                    nextPageUrl = "";
+                },
+                success: function (data) {
+                    nextPageUrl = data.nextPageUrl;
+                        $("#posts-container").append(data.view);
+                },
+                error(xhr, status, error) {
+                    console.log(status, error);
+                    
+                },
+            });
+        }
+    </script> --}}
+
 </body>
 
 </html>
