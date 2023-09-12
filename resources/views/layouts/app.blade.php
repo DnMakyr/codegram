@@ -13,8 +13,8 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jscroll/2.4.1/jquery.jscroll.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.js"
         integrity="sha512-kFoMebJcPxdfDstjuwbbJN3q7hQ6O6npC9exDmbTR7HZZUC50s7DKl/MJSiukySAolVrcVmaLRHTmRjwnGCFow=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -114,41 +114,21 @@
             @yield('content')
         </main>
     </div>
-
-    {{-- <script>
-        $(document).ready(function() {
-            let nextPageUrl = "{{ $posts->nextPageUrl() }}";
-
-            $(window).scroll(function() {
-                if (
-                    $(window).scrollTop() + $(window).height() >=
-                    $(document).height() - 100
-                )
-                    if (nextPageUrl) {
-                        loadMorePosts(nextPageUrl);
-                    }
+    </script>
+    <script type="text/javascript">
+        $('ul.pagination').hide();
+        $(function() {
+            $('.scrolling-pagination').jscroll({
+                autoTrigger: true,
+                padding: 0,
+                nextSelector: '.pagination li.active + li a',
+                contentSelector: 'div.scrolling-pagination',
+                callback: function() {
+                    $('ul.pagination').remove();
+                }
             });
         });
-
-        function loadMorePosts(nextPageUrl) {
-            $.ajax({
-                url: nextPageUrl,
-                type: "get",
-                beforeSend: function() {
-                    nextPageUrl = "";
-                },
-                success: function (data) {
-                    nextPageUrl = data.nextPageUrl;
-                        $("#posts-container").append(data.view);
-                },
-                error(xhr, status, error) {
-                    console.log(status, error);
-                    
-                },
-            });
-        }
-    </script> --}}
-
+    </script>
 </body>
 
 </html>

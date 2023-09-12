@@ -51,8 +51,8 @@
             @foreach ($user->posts as $post)
                 <div class="col-4 pb-4">
                     <a href="/p/{{ $post->id }} "><img src="/storage/{{ $post->image }}" alt=""
-                            data-bs-toggle="modal" data-bs-target="#postModalLabel" class="w-100 me-2"
-                            style="border-radius: 8px; border-collapse: separate; height: 416px; width:416px; object-fit: cover"></a>
+                            data-bs-toggle="modal" data-bs-target="#postModalLabel" class=" me-2"
+                            style="border-radius: 8px; border-collapse: separate; height: 416px; width: 416px; object-fit: cover"></a>
                 </div>
             @endforeach
         </div>

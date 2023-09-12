@@ -1,6 +1,6 @@
 @foreach ($posts as $post)
     <div class="row mb-4 justify-content-center">
-        <div class="col-5 mx-auto">
+        <div class="col-4 mx-auto">
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex align-items-center">
