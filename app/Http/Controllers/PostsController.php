@@ -15,10 +15,10 @@ class PostsController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(Request $request)
+    public function homepage(Request $request)
     {
         $users = auth()->user()->following()->pluck('profiles.user_id');
-        $posts = Post::whereIn('user_id', $users)->with('user')->latest()->paginate(3);
+        $posts = Post::whereIn('user_id', $users)->with('user')->latest()->paginate(5);
 
         return view('posts.index', compact('posts'));
     }
@@ -36,7 +36,7 @@ class PostsController extends Controller
 
         $imagePath = (request('image')->store('uploads', 'public'));
 
-        $image = Image::make(public_path("storage/{$imagePath}")); //->fit(600, 600)
+        $image = Image::make(public_path("storage/{$imagePath}"))->resize(705, 705);
         $image->save();
 
         auth()->user()->posts()->create([

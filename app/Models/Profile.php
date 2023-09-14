@@ -4,12 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class Profile extends Model
 {
-    protected $guarded = [];
-    use HasFactory;
 
+    use HasFactory;
+    use Searchable;
+    protected $fillable = [
+        'title',
+        'description',
+        'url',
+        'image',
+    ];
+    //defaul avatar for new users
     public function profileImage(){
         $imagePath = ($this->image) ? $this->image : 'profile/7FpzVTsdK2HfGtCMd029qpMYxK3PblhUn3L2ZZWC.jpg';
         return '/storage/'.$imagePath;

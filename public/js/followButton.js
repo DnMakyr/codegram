@@ -1,68 +1,39 @@
-// Save follow state to local storage when toggling
-function toggleFollow() {
-    const followButton = document.getElementById("followButton");
-    const userId = followButton.getAttribute("user-id");
-    const follows = followButton.getAttribute("follows");
+document.addEventListener('DOMContentLoaded', function () {
+    const followButton = document.getElementById('followButton');
 
-    // Toggle the 'follows' attribute
-    followButton.setAttribute("follows", follows === "true" ? "false" : "true");
+    const userId = followButton.getAttribute('user-id');
+    let status = followButton.getAttribute('follows') === 'true';
 
-    // Function to update follow state in local storage
-    function updateLocalStorage(follows) {
-        localStorage.setItem(
-            `followState_${userId}`,
-            follows ? "true" : "false"
-        );
-    }
-
-    if (follows === "true") {
-        updateLocalStorage(false);
-        followButton.textContent = "Follow";
-        followButton.style.backgroundColor = "#0275d8";
-        followButton.style.color = "white";
-        followButton.style.borderStyle = "none";
-
-        // Remove the following-button class
-        followButton.classList.remove("following-button");
-
-        axios
-            .post("/follow/" + userId)
-            .then((response) => {
+    function toggleFollow() {
+        axios.post('/follow/' + userId)
+            .then(response => {
+                status = !status;
+                updateButtonText();
+                updateButtonStyle();
                 console.log(response.data);
             })
-            .catch((error) => {
-                if (error.response && error.response.status === 401) {
-                    window.location = "/login";
-                }
-            });
-    } else {
-        updateLocalStorage(true);
-        followButton.textContent = "Following";
-
-        // Add the following-button class
-        followButton.classList.add("following-button");
-
-        axios
-            .post("/follow/" + userId)
-            .then((response) => {
-                console.log(response.data);
-            })
-            .catch((error) => {
-                if (error.response && error.response.status === 401) {
-                    window.location = "/login";
+            .catch(errors => {
+                if (errors.response.status == 401) {
+                    window.location = '/login';
                 }
             });
     }
-}
 
-// Retrieve follow state from local storage when the page loads
-window.addEventListener("load", () => {
-    const followButton = document.getElementById("followButton");
-    const userId = followButton.getAttribute("user-id");
-
-    const storedFollowState = localStorage.getItem(`followState_${userId}`);
-    if (storedFollowState === "true") {
-        followButton.classList.add("following-button");
-        followButton.textContent = "Following";
+    function updateButtonText() {
+        followButton.textContent = status ? 'Following' : 'Follow';
     }
+
+    function updateButtonStyle() {
+        if (status) {
+            followButton.classList.add('following-button');
+        } else {
+            followButton.classList.remove('following-button');
+        }
+    }
+
+    followButton.addEventListener('click', toggleFollow);
+
+    // Initial button text and style
+    updateButtonText();
+    updateButtonStyle();
 });

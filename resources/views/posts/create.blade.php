@@ -36,6 +36,7 @@
 
                             <div class="row pt-1 justify-content-center">
                                 <button class="btn btn-primary btn-sm " style="width:20% ">Add New Post</button>
+                            </div>
                         </form>
                     </div>
                 </div>

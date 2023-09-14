@@ -15,6 +15,7 @@
     },
     "dependencies": {
         "@vitejs/plugin-vue": "^4.3.4",
+        "cloudinary": "^1.40.0",
         "vue": "^3.3.4",
         "vue-loader": "^17.2.2"
     }

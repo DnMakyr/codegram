@@ -1,4 +1,8 @@
 .following-button {
-    background-color: #D3D3D3 !important;
+    background-color: #d3d3d3 !important;
     color: black !important;
+    border-color: #d3d3d3 !important;
+}
+.dimmerHover:hover {
+    filter: brightness(95%);
 }
