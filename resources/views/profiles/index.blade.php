@@ -13,7 +13,7 @@
                     <h2>{{ $user->username }}</h2>
                     <div class="d-flex">
                         {{-- Follow Button --}}
-                        <button id="followButton" class="follow-button btn btn-primary btn-sm dimmerHover"
+                        <button id="followButton" class="follow-button btn btn-primary btn-sm @if ($follows) following-button @endif dimmerHover"
                             style="display: @if (Auth::user() && Auth::user()->id === $user->id) none @endif;" user-id="{{ $user->id }}"
                             follows="{{ $follows ? 'true' : 'false' }}">
                             {{ $follows ? 'Following' : 'Follow' }}

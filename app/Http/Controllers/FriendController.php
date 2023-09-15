@@ -18,12 +18,14 @@ class FriendController extends Controller
         $sender = auth()->user();
         $receipient = User::find($user->id);
         $sender->befriend($receipient);
+        $sender->following()->toggle($receipient->profile);
     }
     public function accept(User $user)
     {
         $sender = User::find($user->id);
         $receipient = auth()->user();
         $receipient->acceptFriendRequest($sender);
+        $receipient->following()->toggle($sender->profile);
     }
     public function reject(User $user)
     {
@@ -37,5 +39,7 @@ class FriendController extends Controller
         $sender = User::find($user->id);
         $receipient = auth()->user();
         $receipient->unfriend($sender);
+        $receipient->following()->toggle($sender->profile);
+        $sender->following()->toggle($receipient->profile);
     }
 }
