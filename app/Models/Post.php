@@ -5,11 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
+use Multicaret\Acquaintances\Traits\CanBeLiked;
 
 class Post extends Model
 {   
     use HasFactory;
-    use Searchable;
+    use Searchable, CanBeLiked;
     protected $fillable = [
         'caption',
         'image',

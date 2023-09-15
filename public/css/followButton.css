@@ -6,3 +6,12 @@
 .dimmerHover:hover {
     filter: brightness(95%);
 }
+button#friend {
+    background-color: #357bed !important;
+    color: white !important;
+    border-color: #d3d3d3 !important;
+}
+button#friend:hover {
+    filter: brightness(85%);
+}
+

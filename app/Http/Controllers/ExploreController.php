@@ -14,7 +14,7 @@ class ExploreController extends Controller
         $loggedInUser = auth()->user();
 
         // Get all users except the logged-in user
-        $users = User::whereNotIn('id', [$loggedInUser->id])->get();
+        $users = User::whereNotIn('id', [$loggedInUser->id])->paginate(8);
 
         return view('friends.explore', compact('users'));
     }

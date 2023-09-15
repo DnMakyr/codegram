@@ -15,4 +15,9 @@ class FollowsController extends Controller
         return auth()->user()->following()->toggle($user->profile);
         // 
     }
+    // public function friendFollow(User $user){
+    //     if (auth()->user()->isFriendWith($user)) {
+    //        return auth()->user()->following()->toggle($user->profile);
+    //     }
+    // }
 }

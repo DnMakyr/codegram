@@ -45,7 +45,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
-                                <img src="/storage/{{ Auth::user()->profile->image }}" class="rounded-circle me-2"
+                                <img src="{{ Auth::user()->profile->profileImage() }}" class="rounded-circle me-2"
                                     style="width: 44px; height: 44px; object-fit: cover">
                                 <a href="/profile/{{ Auth::user()->id }}"
                                     class="text-decoration-none text-dark fw-bold">{{ Auth::user()->username }}</a>

@@ -18,16 +18,18 @@ class Profile extends Model
         'image',
     ];
     //defaul avatar for new users
-    public function profileImage(){
+    public function profileImage()
+    {
         $imagePath = ($this->image) ? $this->image : 'profile/7FpzVTsdK2HfGtCMd029qpMYxK3PblhUn3L2ZZWC.jpg';
-        return '/storage/'.$imagePath;
+        return '/storage/' . $imagePath;
     }
 
     public function user()
-    {   
-        return $this->belongsTo('App\Models\User');   
+    {
+        return $this->belongsTo('App\Models\User');
     }
-    public function followers(){
+    public function followers()
+    {
         return $this->belongsToMany(User::class);
     }
 }
