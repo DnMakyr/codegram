@@ -11,10 +11,12 @@ class ExploreController extends Controller
     public function index()
     {
         // Get the currently logged-in user
-        $loggedInUser = auth()->user();
+        $loggedInUser = auth()->user()->id;
 
         // Get all users except the logged-in user
-        $users = User::whereNotIn('id', [$loggedInUser->id])->paginate(8);
+        $users = User::with('profile')
+            ->whereNotIn('id', [$loggedInUser])
+            ->paginate(8);
 
         return view('friends.explore', compact('users'));
     }

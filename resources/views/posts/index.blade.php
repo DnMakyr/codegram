@@ -50,6 +50,20 @@
                                 <a href="/profile/{{ Auth::user()->id }}"
                                     class="text-decoration-none text-dark fw-bold">{{ Auth::user()->username }}</a>
                             </div>
+                            <div style="margin-top: 8px; border-top-style: solid">
+                                <p style="font-family: sans-serif; color:rgb(33, 113, 199); font-weight: bold">Suggestion</p>
+                                @foreach ($suggests as $suggest)
+                                    <div>
+                                        <div class="d-flex align-items-center" style="margin-top: 8px">
+                                            <img src="{{ $suggest->profile->profileImage() }}"
+                                                class="rounded-circle me-2" style="width: 32px; height: 32px; object-fit: cover">
+                                            <a href="/profile/{{ $suggest->id }}"
+                                                class="text-decoration-none text-dark fw-bold">{{ $suggest->username }}</a>
+                                        </div>  
+                                    </div>
+                                @endforeach
+                            </div>
+                            
                         </div>
                     </div>
                 </div>

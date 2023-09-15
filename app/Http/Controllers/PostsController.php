@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Intervention\Image\Facades\Image;
@@ -19,8 +20,12 @@ class PostsController extends Controller
     {
         $users = auth()->user()->following()->pluck('profiles.user_id');
         $posts = Post::whereIn('user_id', $users)->with('user')->latest()->paginate(5);
-
-        return view('posts.index', compact('posts'));
+        $suggests = User::with('profile') // Eager load the 'profile' relationship
+            ->whereNotIn('id', [auth()->user()->id])
+            ->inRandomOrder()
+            ->limit(5)
+            ->get();
+        return view('posts.index', compact('posts', 'suggests'));
     }
     //
     public function create()
