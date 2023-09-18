@@ -14,32 +14,32 @@ class FriendController extends Controller
     }
     public function add(User $user)
     {
-
-        $sender = auth()->user();
-        $receipient = User::find($user->id);
-        $sender->befriend($receipient);
-        $sender->following()->toggle($receipient->profile);
+        auth()->user()->befriend(($user));
+        auth()->user()->following()->toggle($user->profile);
+        return redirect()->back();
     }
     public function accept(User $user)
     {
-        $sender = User::find($user->id);
-        $receipient = auth()->user();
-        $receipient->acceptFriendRequest($sender);
-        $receipient->following()->toggle($sender->profile);
+        auth()->user()->acceptFriendRequest($user);
+        auth()->user()->following()->toggle($user->profile);
+        return redirect()->back();
     }
-    public function reject(User $user)
+    public function decline(User $user)
     {
-        $sender = User::find($user->id);
-        $receipient = auth()->user();
-        $receipient->denyFriendRequest($sender);
+        auth()->user()->denyFriendRequest($user);
+        return redirect()->back();
     }
 
     public function unfriend(User $user)
     {
-        $sender = User::find($user->id);
-        $receipient = auth()->user();
-        $receipient->unfriend($sender);
-        $receipient->following()->toggle($sender->profile);
-        $sender->following()->toggle($receipient->profile);
+        auth()->user()->unfriend($user);
+        auth()->user()->following()->toggle($user->profile);
+        $user->following()->toggle(auth()->user()->profile);
+        return redirect()->back();
+    }
+    public function cancel(User $user)
+    {
+        auth()->user()->unfriend($user);
+        return redirect()->back();
     }
 }

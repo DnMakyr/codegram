@@ -9,50 +9,66 @@
                     <div class="card">
                         <a href="/profile/{{ $user->id }}""> <img src="{{ $user->profile->profileImage() }}"
                                 alt="{{ $user->username }}" class="card-img-top" style="object-fit: contain"></a>
-                                <div class="card-body">
-                                    <div class="d-flex align-items-center">
-                                        <div style="flex-grow: 1;">
-                                            <h5 class="card-title">
-                                                <a href="/profile/{{ $user->id }}" style="text-decoration: none; color: black; font-weight: bold">
-                                                    {{ $user->username }}
-                                                </a>
-                                            </h5>
-                                            <p class="card-text">{{ $user->profile->title }}</p>
-                                        </div>
-                                        <div class="ml-auto">
-                                            <a
-                                                id="friendshipButton"
-                                                class="btn btn-primary"
-                                                  data-user-id="{{ $user->id }}"
-
-                                                data-toggle="collapse"
-                                                href="/addfriend/{{ $user->id }}"
-                                                aria-expanded="false"
-                                                aria-controls="friendActions">
-                                                {{ $user->isFriendWith(auth()->user()) ? 'Friend' : 'Add Friend' }}
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div style="flex-grow: 1;">
+                                    <h5 class="card-title">
+                                        <a href="/profile/{{ $user->id }}"
+                                            style="text-decoration: none; color: black; font-weight: bold">
+                                            {{ $user->username }}
                                         </a>
-                                        </div>
-                                    </div>
-                                    <div class="collapse" id="friendActions">
-                                        <button
-                                            id="acceptFriendButton"
-                                            class="btn btn-success mr-2"
-                                            data-toggle="tooltip"
-                                            title="Accept Friend Request"
-                                            style="display: none;">
-                                            Accept
-                                        </button>
-                                        <button
-                                            id="rejectFriendButton"
-                                            class="btn btn-danger"
-                                            data-toggle="tooltip"
-                                            title="Reject Friend Request"
-                                            style="display: none;">
-                                            Reject
-                                        </button>
-                                    </div>
+                                    </h5>
+                                    <p class="card-text">{{ $user->profile->title }}</p>
                                 </div>
-                                
+                                <div class="ml-auto">
+                                    @if (auth()->user()->isFriendWith($user))
+                                        {{-- Already friends, show the "Remove Friend" button --}}
+
+                                        <div class="dropdown">
+                                            <button class="btn btn-secondary dropdown-toggle" type="button"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                Friend
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="friend-action dropdown-item"
+                                                        href="/unfriend/{{ $user->id }}"
+                                                        user-id="{{ $user->id }}">Unfriend</a></li>
+                                            </ul>
+                                        </div>
+                                    @elseif (auth()->user()->hasFriendRequestFrom($user))
+                                        {{-- Friend request received, show the "Accept" and "Decline" buttons --}}
+                                        <div class="dropdown">
+                                            <button class="btn btn-secondary dropdown-toggle" type="button"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                Action
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="friend-action dropdown-item"
+                                                        href="/accept/{{ $user->id }}"
+                                                        user-id="{{ $user->id }}">Accept</a></li>
+                                                <li><a class="friend-action dropdown-item"
+                                                        href="/decline/{{ $user->id }}"
+                                                        user-id="{{ $user->id }}">Decline</a></li>
+                                            </ul>
+                                        </div>
+                                    @elseif (auth()->user()->hasSentFriendRequestTo($user))
+                                        {{-- Friend request sent, show the "Cancel Request" button --}}
+                                        <a href="/cancel/{{ $user->id }}">
+                                        <button class="btn btn-warning cancelButton"
+                                            user-id="{{ $user->id }}">Cancel</button>
+                                        </a>
+                                    @else
+                                        {{-- Not friends, show the "Add Friend" button --}}
+
+                                        <a href="/addfriend/{{ $user->id }}"><button class="btn btn-primary addButton"
+                                            user-id="{{ $user->id }}">Add
+                                            Friend</button>
+                                        </a>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             @endforeach

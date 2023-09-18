@@ -12,8 +12,53 @@
 
                     <h2>{{ $user->username }}</h2>
                     <div class="d-flex">
+                        {{-- Friend Button --}}
+                        @if (auth()->user() && auth()->user()->id !== $user->id)
+                            @if (auth()->user()->isFriendWith($user))
+                                {{-- Already friends, show the "Remove Friend" button --}}
+
+                                <div class="dropdown me-2">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        Friend
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="friend-action dropdown-item" href="/unfriend/{{ $user->id }}"
+                                                user-id="{{ $user->id }}">Unfriend</a></li>
+                                    </ul>
+                                </div>
+                            @elseif (auth()->user()->hasFriendRequestFrom($user))
+                                {{-- Friend request received, show the "Accept" and "Decline" buttons --}}
+                                <div class="dropdown me-2">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        Action
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="friend-action dropdown-item" href="/accept/{{ $user->id }}"
+                                                user-id="{{ $user->id }}">Accept</a></li>
+                                        <li><a class="friend-action dropdown-item" href="/decline/{{ $user->id }}"
+                                                user-id="{{ $user->id }}">Decline</a></li>
+                                    </ul>
+                                </div>
+                            @elseif (auth()->user()->hasSentFriendRequestTo($user))
+                                {{-- Friend request sent, show the "Cancel Request" button --}}
+                                <a class="me-2" href="/cancel/{{ $user->id }}">
+                                    <button class="btn btn-warning cancelButton"
+                                        user-id="{{ $user->id }}">Cancel</button>
+                                </a>
+                            @else
+                                {{-- Not friends, show the "Add Friend" button --}}
+
+                                <a class="me-2" href="/addfriend/{{ $user->id }}"><button class="btn btn-primary addButton"
+                                        user-id="{{ $user->id }}">Add
+                                        Friend</button>
+                                </a>
+                            @endif
+                        @endif
                         {{-- Follow Button --}}
-                        <button id="followButton" class="follow-button btn btn-primary btn-sm @if ($follows) following-button @endif dimmerHover"
+                        <button id="followButton"
+                            class="follow-button btn btn-primary btn-sm @if ($follows) following-button @endif dimmerHover"
                             style="display: @if (Auth::user() && Auth::user()->id === $user->id) none @endif;" user-id="{{ $user->id }}"
                             follows="{{ $follows ? 'true' : 'false' }}">
                             {{ $follows ? 'Following' : 'Follow' }}
@@ -53,8 +98,8 @@
                             class=" me-1"
                             style="border-collapse: separate; height: 320px; width: 320px; object-fit: cover"></a> --}}
 
-                    <a href="/p/{{ $post->id }} "><img src="/storage/{{ $post->image }}"
-                            alt="" class=" me-1"
+                    <a href="/p/{{ $post->id }} "><img src="/storage/{{ $post->image }}" alt=""
+                            class=" me-1"
                             style="border-collapse: separate; height: 320px; width: 320px; object-fit: cover"></a>
 
 

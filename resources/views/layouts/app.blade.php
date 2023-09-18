@@ -25,13 +25,7 @@
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script type="text/javascript" src="{{ asset('js/followButton.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/friend.js') }}"></script>
-    {{-- <script>
-            // Get the current user's ID from Laravel's authentication system
-            const currentUserId = {{ Auth::check() ? Auth::user()->id : 'null' }};
-        
-            // Use currentUserId in your JavaScript code
-        </script> --}}
+    <script type="text/javascript" src="{{ asset('js/friendButton.js') }}"></script>
     <link rel="stylesheet" href="{{ url('css/followButton.css') }}">
     <link rel="stylesheet" href="{{ url('css/sidebar.css') }}">
     <link rel="stylesheet" href="{{ url('css/postCard.css') }}">
