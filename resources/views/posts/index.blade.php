@@ -29,26 +29,38 @@
                                                     class="text-decoration-none text-dark fw-bold">{{ $post->user->username }}</a></span>
                                             <p>{{ $post->caption }}</p>
                                         </div>
-                                        <div>
-
+                                        <div id="comments-container">
                                             @foreach ($post->comments as $comment)
                                                 <div class="comment d-flex">
-
                                                     <a class="text-dark" href=""
                                                         style="margin-right: 5px; font-weight: bold;
-                                                        text-decoration: none">
+                                                    text-decoration: none">
                                                         {{ $comment->user->username }}</a>
-
                                                     {{ $comment->content }}
+                                                    @if ($comment->user_id === auth()->user()->id)
+                                                        <div class="dropdown"
+                                                            style="position: absolute;
+                                                            right: 0;">
+                                                            <img src="{{ asset('icons/more.png') }}"
+                                                                class="dropdown-toggle" type="button"
+                                                                data-bs-toggle="dropdown" aria-expanded="false"
+                                                                alt="">
+                                                            <ul class="dropdown-menu">
+                                                                <li><a class="friend-action dropdown-item">Edit</a></li>
+                                                                <li><a class="friend-action dropdown-item delete-comment-link"
+                                                                        data-comment-id="{{ $comment->id }}">Delete</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    @endif
                                                 </div>
                                             @endforeach
-
                                         </div>
                                         <div>
-                                            <form method="POST" action="{{ route('comment.save') }}" autocomplete="off">
+                                            <form method="POST" autocomplete="off">
                                                 @csrf
                                                 <input id="content" type="text" class="comment"
-                                                    placeholder="Says something..." name="content" autofocus>
+                                                    placeholder="Say something..." name="content" autofocus>
                                                 <input type="hidden" name="postId" value="{{ $post->id }}">
                                             </form>
                                         </div>

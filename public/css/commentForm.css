@@ -4,3 +4,8 @@ form .comment{
     background-color: inherit;
     outline: none;
 }
+div.interaction{
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 15px;
+}

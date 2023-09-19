@@ -26,4 +26,14 @@ class CommentsController extends Controller
         // Redirect back to the post or wherever you want
         return redirect()->back();
     }
+    public function deleteComm(Comment $comment)
+    {
+        // Check if the authenticated user is the owner of the comment (or has the necessary permissions)
+        if ($comment->user_id === auth()->user()->id) {
+            $comment->delete();
+            return response()->json(['message' => 'Comment deleted successfully']);
+        } else {
+            return response()->json(['message' => 'You do not have permission to delete this comment'], 403);
+        }
+    }
 }

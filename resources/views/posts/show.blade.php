@@ -3,7 +3,7 @@
 @section('content')
     <div class="container pt-2 ps-3">
         <div class="row">
-            <div class="col-7" style=" max-height: 705px">
+            <div class="col-7" style="max-height: 705px">
                 <!-- Keep the image within the container and set max-width and max-height -->
                 <img src="/storage/{{ $post->image }}" alt="" class="w-100"
                     style="max-width: 705px; max-height: 705px; object-fit: cover">
@@ -29,20 +29,13 @@
                                     class="text-dark">{{ $post->user->username }}</span></a></span>{{ $post->caption }}
                     </p>
                 </div>
-                <div>
-                    <form method="POST" action="{{ route('comment.save') }}" autocomplete="off">
-                        @csrf
-                        <input id="content" type="text" class="comment" placeholder="Says something..." name="content"
-                            autofocus>
-                        <input type="hidden" name="postId" value="{{ $post->id }}">
-                    </form>
-                </div>
                 <div class="comments">
 
                     @foreach ($post->comments as $comment)
-                        <div class="comment d-flex">
-
-                            <a class="text-dark" href=""
+                        <div class="comment d-flex mb-2">
+                            <a><img src="/storage/{{ $comment->user->profile->image }}" class="rounded-circle me-2"
+                                    style="width: 32px; height: 32px; object-fit: cover"></a>
+                            <a class="text-dark" href="/profile/{{ $comment->user->id }}"
                                 style="margin-right: 5px; font-weight: bold;
                                 text-decoration: none">
                                 {{ $comment->user->username }}</a>
@@ -51,6 +44,15 @@
                         </div>
                     @endforeach
 
+                </div>
+                <!-- Move the comment input form here (within the col-5 div) -->
+                <div class="interaction">
+                    <form method="POST" action="{{ route('comment.save') }}" autocomplete="off">
+                        @csrf
+                        <input id="content" type="text" class="comment form-control" size="60" placeholder="Say something..." name="content"
+                            autofocus>
+                        <input type="hidden" name="postId" value="{{ $post->id }}">
+                    </form>
                 </div>
             </div>
         </div>

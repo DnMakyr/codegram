@@ -57,3 +57,4 @@ Route::get('/unfriend/{user}', [FriendController::class, 'unfriend']);
 
 //Comments
 Route::post('comment', [App\Http\Controllers\CommentsController::class, 'saveComm'])->name('comment.save');
+Route::delete('comment/delete/{comment}', [App\Http\Controllers\CommentsController::class, 'deleteComm'])->name('comment.delete');

@@ -13,6 +13,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    {{-- Scripts --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jscroll/2.4.1/jquery.jscroll.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"
@@ -26,23 +27,15 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script type="text/javascript" src="{{ asset('js/followButton.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/friendButton.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/comment.js') }}"></script>
+    {{-- Styles --}}
     <link rel="stylesheet" href="{{ url('css/followButton.css') }}">
     <link rel="stylesheet" href="{{ url('css/sidebar.css') }}">
     <link rel="stylesheet" href="{{ url('css/postCard.css') }}">
     <link rel="stylesheet" href="{{ url('css/friendButton.css') }}">
     <link rel="stylesheet" href="{{ url('css/commentForm.css') }}">
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-
-    <style>
-        .list-group-item {
-
-            align-items: center;
-
-            width: 100%;
-            padding: 0.75rem 1rem;
-            /* Adjust padding as needed */
-        }
-    </style>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
 </head>
 
@@ -69,6 +62,7 @@
             });
         });
     </script>
+
 </body>
 
 </html>
