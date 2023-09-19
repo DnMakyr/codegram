@@ -31,36 +31,29 @@ Route::view('/search', 'posts.search');
 
 //Home
 Route::get('/', [PostsController::class, 'homepage']);
-
 //Create post
 Route::get('/p/create', [PostsController::class, 'create']);
-
 //Show post
 Route::get('/p/{post}', [PostsController::class, 'show']);
-
 //Store post
 Route::post('/p', [PostsController::class, 'store']);
-
 //Redirect after login
 Route::get('/', [HomeController::class, 'index'])->name('profile.show');
-
 //Show profile
 Route::get('/profile/{user}', [App\Http\Controllers\ProfilesController::class, 'index'])->name('profile.show');
 //Edit profile
 Route::get('/profile/{user}/edit', [App\Http\Controllers\ProfilesController::class, 'edit'])->name('profile.edit');
-
 Route::patch('/profile/{user}', [App\Http\Controllers\ProfilesController::class, 'update'])->name('profile.update');
 
 
 Route::get('/explore', [ExploreController::class, 'index'])->name('friends.explore');
 
-
+//Friends
 Route::get('/addfriend/{user}', [FriendController::class, 'add']);
-
 Route::get('/cancel/{user}', [FriendController::class, 'cancel']);
-
 Route::get('/accept/{user}', [FriendController::class, 'accept']);
-
 Route::get('/decline/{user}', [FriendController::class, 'decline']);
-
 Route::get('/unfriend/{user}', [FriendController::class, 'unfriend']);
+
+//Comments
+Route::post('comment', [App\Http\Controllers\CommentsController::class, 'saveComm'])->name('comment.save');

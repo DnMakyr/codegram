@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -16,11 +17,10 @@ class PostsController extends Controller
         $this->middleware('auth');
     }
 
-    public function homepage(Request $request)
     {
         $users = auth()->user()->following()->pluck('profiles.user_id');
-        $posts = Post::whereIn('user_id', $users)->with('user')->latest()->paginate(5);
-        $suggests = User::with('profile') // Eager load the 'profile' relationship
+        $posts = Post::whereIn('user_id', $users)->with('user')->with('comments')->latest()->paginate(5);
+        $suggests = User::with('profile')
             ->whereNotIn('id', [auth()->user()->id])
             ->inRandomOrder()
             ->limit(5)

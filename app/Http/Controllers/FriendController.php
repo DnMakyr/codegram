@@ -15,13 +15,17 @@ class FriendController extends Controller
     public function add(User $user)
     {
         auth()->user()->befriend(($user));
-        auth()->user()->following()->toggle($user->profile);
+        if (!auth()->user()->following->contains($user->profile)) {
+            auth()->user()->following()->toggle($user->profile);
+        }
         return redirect()->back();
     }
     public function accept(User $user)
     {
         auth()->user()->acceptFriendRequest($user);
-        auth()->user()->following()->toggle($user->profile);
+        if (!auth()->user()->following->contains($user->profile)) {
+            auth()->user()->following()->toggle($user->profile);
+        }
         return redirect()->back();
     }
     public function decline(User $user)
@@ -33,8 +37,10 @@ class FriendController extends Controller
     public function unfriend(User $user)
     {
         auth()->user()->unfriend($user);
-        auth()->user()->following()->toggle($user->profile);
-        $user->following()->toggle(auth()->user()->profile);
+        if (auth()->user()->following->contains($user->profile) && $user->following->contains(auth()->user()->profile)) {
+            auth()->user()->following()->toggle($user->profile);
+            $user->following()->toggle(auth()->user()->profile);
+        }
         return redirect()->back();
     }
     public function cancel(User $user)

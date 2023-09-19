@@ -29,6 +29,8 @@
     <link rel="stylesheet" href="{{ url('css/followButton.css') }}">
     <link rel="stylesheet" href="{{ url('css/sidebar.css') }}">
     <link rel="stylesheet" href="{{ url('css/postCard.css') }}">
+    <link rel="stylesheet" href="{{ url('css/friendButton.css') }}">
+    <link rel="stylesheet" href="{{ url('css/commentForm.css') }}">
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
     <style>

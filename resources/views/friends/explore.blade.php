@@ -60,10 +60,10 @@
                                     @else
                                         {{-- Not friends, show the "Add Friend" button --}}
 
-                                        <a href="/addfriend/{{ $user->id }}"><button class="btn btn-primary addButton"
+                                      <button class="btn btn-primary addButton"
                                             user-id="{{ $user->id }}">Add
                                             Friend</button>
-                                        </a>
+                                    
                                     @endif
                                 </div>
                             </div>

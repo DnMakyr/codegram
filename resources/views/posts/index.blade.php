@@ -9,10 +9,13 @@
                         <div class="scrolling-pagination">
                             @foreach ($posts as $post)
                                 <div class="card no-border-card">
-                                    <div class="card-body">
+                                    <div class="card-body post">
                                         <div class="d-flex align-items-center mb-3">
-                                            <img src="/storage/{{ $post->user->profile->image }}"
-                                                class="rounded-circle me-2" style="width: 32px; height: 32px; object-fit: cover">
+                                            <a href="/profile/{{ $post->user->id }}">
+                                                <img src="/storage/{{ $post->user->profile->image }}"
+                                                    class="rounded-circle me-2"
+                                                    style="width: 32px; height: 32px; object-fit: cover">
+                                            </a>
                                             <a href="/profile/{{ $post->user->id }}"
                                                 class="text-decoration-none text-dark fw-bold">{{ $post->user->username }}</a>
                                         </div>
@@ -25,6 +28,29 @@
                                             <span class="me-1"><a href="/profile/{{ $post->user->id }}"
                                                     class="text-decoration-none text-dark fw-bold">{{ $post->user->username }}</a></span>
                                             <p>{{ $post->caption }}</p>
+                                        </div>
+                                        <div>
+
+                                            @foreach ($post->comments as $comment)
+                                                <div class="comment d-flex">
+
+                                                    <a class="text-dark" href=""
+                                                        style="margin-right: 5px; font-weight: bold;
+                                                        text-decoration: none">
+                                                        {{ $comment->user->username }}</a>
+
+                                                    {{ $comment->content }}
+                                                </div>
+                                            @endforeach
+
+                                        </div>
+                                        <div>
+                                            <form method="POST" action="{{ route('comment.save') }}" autocomplete="off">
+                                                @csrf
+                                                <input id="content" type="text" class="comment"
+                                                    placeholder="Says something..." name="content" autofocus>
+                                                <input type="hidden" name="postId" value="{{ $post->id }}">
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -55,15 +81,18 @@
                                 @foreach ($suggests as $suggest)
                                     <div>
                                         <div class="d-flex align-items-center" style="margin-top: 8px">
-                                            <img src="{{ $suggest->profile->profileImage() }}"
-                                                class="rounded-circle me-2" style="width: 44px; height: 44px; object-fit: cover">
+                                            <a href="/profile/{{ $suggest->id }}">
+                                                <img src="{{ $suggest->profile->profileImage() }}"
+                                                    class="rounded-circle me-2"
+                                                    style="width: 44px; height: 44px; object-fit: cover">
+                                            </a>
                                             <a href="/profile/{{ $suggest->id }}"
                                                 class="text-decoration-none text-dark fw-bold">{{ $suggest->username }}</a>
-                                        </div>  
+                                        </div>
                                     </div>
                                 @endforeach
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>

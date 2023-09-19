@@ -1,69 +1,26 @@
-// Get all friend action links and buttons
-const friendActionLinks = document.querySelectorAll(".friend-action");
-const friendButtons = document.querySelectorAll(".cancelButton, .addButton");
+var dropdownItems = document.querySelectorAll('.friend-action');
 
-friendActionLinks.forEach((link) => {
-    link.addEventListener("click", function () {
-        const userId = this.getAttribute("user-id");
-        const action = this.textContent.trim(); // Get the action from the link text
+    // Attach a click event listener to each dropdown item
+    dropdownItems.forEach(function(item) {
+        item.addEventListener('click', function(event) {
+            // Prevent the default behavior of the link click (page reload)
+            event.preventDefault();
 
-        // Define the route based on the selected action
-        let route = "";
-        switch (action) {
-            case "Accept":
-                route = "/accept/" + userId;
-                break;
-            case "Decline":
-                route = "/decline/" + userId;
-                break;
-            case "Unfriend":
-                route = "/unfriend/" + userId;
-                break;
-        }
-
-        // Send an AJAX request to the appropriate route
-        axios
-            .get(route)
-            .then((response) => {
-                if (response.data.success) {
-                    // Handle success (e.g., display a success message)
-                    console.log(response.data);
-                }
+            // Now, you can perform any additional actions here
+            // For example, you can send an AJAX request to perform the desired action
+            // Here's a sample AJAX request using the Fetch API:
+            fetch(item.getAttribute('href'), {
+                method: 'GET', // You can change the HTTP method as needed
             })
-            .catch((error) => {
-                console.error("Error:", error);
-            });
-    });
-});
-
-friendButtons.forEach((button) => {
-    button.addEventListener("click", function () {
-        const userId = this.getAttribute("user-id");
-        const action = this.textContent.trim(); // Get the action from the button text
-
-        // Define the route based on the selected action
-        let route = "";
-        switch (action) {
-            case "Add Friend":
-                route = `/addfriend/${userId}`;
-                break;
-            case "Cancel":
-                route = `/cancel/${userId}`;
-                break;
-        }
-
-        // Send an AJAX request to the appropriate route
-        axios
-            .get(route) // Use GET for simplicity, consider using POST for security
-            .then((response) => {
-                // Handle the response here (e.g., update the button text or style)
-                if (response.data.success) {
-                    // Handle success (e.g., display a success message)
-                    console.log("Action successful");
-                }
+            .then(function(response) {
+                // Handle the response here (e.g., update the UI)
             })
-            .catch((error) => {
-                console.error("Error:", error);
+            .catch(function(error) {
+                // Handle any errors here
             });
+        });
     });
-});
+
+
+
+
