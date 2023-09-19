@@ -12,7 +12,7 @@ class CommentsController extends Controller
     {
         // Validate the request data
         $validatedData = $request->validate([
-            'content' => 'required|string|max:10',
+            'content' => 'required|string|max:255',
         ]);
         $content = $request->get('content');
         $post = $request->get('postId');

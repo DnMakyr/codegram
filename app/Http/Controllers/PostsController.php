@@ -17,15 +17,17 @@ class PostsController extends Controller
         $this->middleware('auth');
     }
 
+    public function homepage(Request $request)
     {
         $users = auth()->user()->following()->pluck('profiles.user_id');
-        $posts = Post::whereIn('user_id', $users)->with('user')->with('comments')->latest()->paginate(5);
-        $suggests = User::with('profile')
+        $posts = Post::whereIn('user_id', $users)->with('user')->latest()->paginate(5);
+        $comments = Comment::with('user')->get();
+        $suggests = User::with('profile') // Eager load the 'profile' relationship
             ->whereNotIn('id', [auth()->user()->id])
             ->inRandomOrder()
             ->limit(5)
             ->get();
-        return view('posts.index', compact('posts', 'suggests'));
+        return view('posts.index', compact('posts', 'suggests', 'comments'));
     }
     //
     public function create()

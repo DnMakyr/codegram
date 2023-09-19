@@ -29,6 +29,29 @@
                                     class="text-dark">{{ $post->user->username }}</span></a></span>{{ $post->caption }}
                     </p>
                 </div>
+                <div>
+                    <form method="POST" action="{{ route('comment.save') }}" autocomplete="off">
+                        @csrf
+                        <input id="content" type="text" class="comment" placeholder="Says something..." name="content"
+                            autofocus>
+                        <input type="hidden" name="postId" value="{{ $post->id }}">
+                    </form>
+                </div>
+                <div class="comments">
+
+                    @foreach ($post->comments as $comment)
+                        <div class="comment d-flex">
+
+                            <a class="text-dark" href=""
+                                style="margin-right: 5px; font-weight: bold;
+                                text-decoration: none">
+                                {{ $comment->user->username }}</a>
+
+                            {{ $comment->content }}
+                        </div>
+                    @endforeach
+
+                </div>
             </div>
         </div>
     </div>
