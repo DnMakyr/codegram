@@ -5,10 +5,9 @@ document.addEventListener("click", function (event) {
 
         if (confirm("Are you sure you want to delete this comment?")) {
             axios
-                .delete(`comment/delete/${commentId}`)
+                .delete(`/comment/delete/${commentId}`)
                 .then(function (response) {
                     alert(response.data.message);
-                    // Reload the comments container after a successful deletion
                     loadComments();
                 })
                 .catch(function (error) {
@@ -27,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     contentInput.addEventListener('keypress', function (e) {
         if (e.key === 'Enter') {
-            e.preventDefault(); // Prevent the default form submission
+            e.preventDefault();
             saveComment();
             loadComments();
         }
@@ -38,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const postId = document.querySelector('input[name="postId"]').value;
 
         if (content) {
-            axios.post('comment', {  // Use the correct route name here
+            axios.post(`/comment/${postId}`, {  // Use the correct route name here
                 content: content,
                 postId: postId
             })

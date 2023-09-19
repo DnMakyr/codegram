@@ -20,8 +20,8 @@ class PostsController extends Controller
     public function homepage(Request $request)
     {
         $users = auth()->user()->following()->pluck('profiles.user_id');
-        $posts = Post::whereIn('user_id', $users)->with('user')->latest()->paginate(5);
-        $comments = Comment::with('user')->get();
+        $posts = Post::whereIn('user_id', $users)->with('user')->with('comments')->latest()->paginate(5);
+        $comments = Comment::with('user')->latest()->paginate(5);
         $suggests = User::with('profile') // Eager load the 'profile' relationship
             ->whereNotIn('id', [auth()->user()->id])
             ->inRandomOrder()
