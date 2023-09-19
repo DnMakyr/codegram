@@ -32,12 +32,12 @@
                                         <div id="comments-container">
                                             @foreach ($post->comments as $comment)
                                                 <div class="comment d-flex">
-                                                    <a class="text-dark" href=""
+                                                    <a class="text-dark" href="/profile/{{ $comment->user->id }}"
                                                         style="margin-right: 5px; font-weight: bold;
                                                     text-decoration: none">
                                                         {{ $comment->user->username }}</a>
                                                     {{ $comment->content }}
-                                                    @if ($comment->user_id === auth()->user()->id)
+                                                    @if ($comment->user_id === auth()->user()->id || $post->user_id === auth()->user()->id)
                                                         <div class="dropdown"
                                                             style="position: absolute;
                                                             right: 0;">

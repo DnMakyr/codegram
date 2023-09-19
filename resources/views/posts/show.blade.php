@@ -19,7 +19,7 @@
                             <div class="fw-bold"><a class=" text-decoration-none"
                                     href="/profile/{{ $post->user->id }}"><span
                                         class="text-dark">{{ $post->user->username }}</span></a>
-                                • <a id="followText" class=" text-decoration-none" href="">Follow</a>
+                                  • <a id="followText" class=" text-decoration-none" href="">Follow</a>
                             </div>
                         </div>
                     </div>
@@ -29,7 +29,7 @@
                                     class="text-dark">{{ $post->user->username }}</span></a></span>{{ $post->caption }}
                     </p>
                 </div>
-                <div class="comments">
+                <div  id="comments-container">
 
                     @foreach ($post->comments as $comment)
                         <div class="comment d-flex mb-2">
@@ -45,9 +45,8 @@
                     @endforeach
 
                 </div>
-                <!-- Move the comment input form here (within the col-5 div) -->
                 <div class="interaction">
-                    <form method="POST" action="{{ route('comment.save') }}" autocomplete="off">
+                    <form method="POST" autocomplete="off">
                         @csrf
                         <input id="content" type="text" class="comment form-control" size="60" placeholder="Say something..." name="content"
                             autofocus>

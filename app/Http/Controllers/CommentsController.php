@@ -3,23 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class CommentsController extends Controller
 {
     //
-    public function saveComm(Request $request)
+    public function saveComm(Request $request, Post $post)
     {
         // Validate the request data
         $validatedData = $request->validate([
             'content' => 'required|string|max:255',
         ]);
         $content = $request->get('content');
-        $post = $request->get('postId');
+        
         // Create a new comment
         $comment = new Comment();
         $comment->user_id = auth()->user()->id;
-        $comment->post_id = $post;
+        $comment->post_id = $post->id;
         $comment->content = $content;
         $comment->save();
 

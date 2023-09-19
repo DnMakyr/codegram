@@ -37,8 +37,8 @@ Route::get('/p/create', [PostsController::class, 'create']);
 Route::get('/p/{post}', [PostsController::class, 'show']);
 //Store post
 Route::post('/p', [PostsController::class, 'store']);
-//Redirect after login
-Route::get('/', [HomeController::class, 'index'])->name('profile.show');
+// //Redirect after login
+// Route::get('/', [HomeController::class, 'index'])->name('profile.show');
 //Show profile
 Route::get('/profile/{user}', [App\Http\Controllers\ProfilesController::class, 'index'])->name('profile.show');
 //Edit profile
@@ -56,5 +56,5 @@ Route::get('/decline/{user}', [FriendController::class, 'decline']);
 Route::get('/unfriend/{user}', [FriendController::class, 'unfriend']);
 
 //Comments
-Route::post('comment', [App\Http\Controllers\CommentsController::class, 'saveComm'])->name('comment.save');
-Route::delete('comment/delete/{comment}', [App\Http\Controllers\CommentsController::class, 'deleteComm'])->name('comment.delete');
+Route::post('/comment/{post}', [App\Http\Controllers\CommentsController::class, 'saveComm'])->name('comment.save');
+Route::delete('/comment/delete/{comment}', [App\Http\Controllers\CommentsController::class, 'deleteComm'])->name('comment.delete');
