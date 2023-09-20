@@ -21,7 +21,7 @@ class PostsController extends Controller
     {
         $users = auth()->user()->following()->pluck('profiles.user_id');
         $posts = Post::whereIn('user_id', $users)->with('user')->with('comments')->latest()->paginate(5);
-        $comments = Comment::with('user')->latest()->paginate(5);
+        $comments = Comment::with('user')->latest()->paginate(2);
         $suggests = User::with('profile') // Eager load the 'profile' relationship
             ->whereNotIn('id', [auth()->user()->id])
             ->inRandomOrder()
@@ -43,7 +43,7 @@ class PostsController extends Controller
 
         $imagePath = (request('image')->store('uploads', 'public'));
 
-        $image = Image::make(public_path("storage/{$imagePath}"))->resize(705, 705);
+        $image = Image::make(public_path("storage/{$imagePath}"));
         $image->save();
 
         auth()->user()->posts()->create([

@@ -27,12 +27,13 @@
                                 <label for="image"
                                     class="col-md-4 col-form-label text-md-end">{{ __('Post Image') }}</label>
                                 <div class="col-md-6">
-                                    <input type="file" class="form-control-file" id="image" name="image">
+                                    <input type="file" class="form-control-file" id="image" name="image" accept="image/*">
                                     @error('image')
                                         <strong>{{ $message }}</strong>
                                     @enderror
                                 </div>
                             </div>
+                            @include('components.resizemodal')    
 
                             <div class="row pt-1 justify-content-center">
                                 <button class="btn btn-primary btn-sm " style="width:20% ">Add New Post</button>

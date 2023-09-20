@@ -45,9 +45,10 @@
                                 <label for="image"
                                     class="col-md-4 col-form-label text-md-end">{{ __('Profile Image') }}</label>
                                 <div class="col-md-6">
-                                    <input type="file" class="form-control-file" id="image" name="image">
+                                    <input type="file" class="form-control-file" id="image" name="image" data-bs-toggle="modal" data-bs-target="#cropModal">
                                 </div>
                             </div>
+                            @include('components.cropmodal')
 
                             <div class="row mb-0 justify-content-center">
                                 <div class="col-md-6 offset-md-4">

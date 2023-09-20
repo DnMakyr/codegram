@@ -1,4 +1,4 @@
-form .comment{
+form .commentInput{
     border-style: hidden;
     width: 100%;
     background-color: inherit;
@@ -8,4 +8,11 @@ div.interaction{
     position: absolute;
     bottom: 0;
     margin-bottom: 15px;
+}
+.comment-action{
+    color: #999;
+    cursor: pointer;
+}
+.comment-action:hover{
+    filter: brightness(85%);
 }

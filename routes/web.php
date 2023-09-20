@@ -56,5 +56,7 @@ Route::get('/decline/{user}', [FriendController::class, 'decline']);
 Route::get('/unfriend/{user}', [FriendController::class, 'unfriend']);
 
 //Comments
-Route::post('/comment/{post}', [App\Http\Controllers\CommentsController::class, 'saveComm'])->name('comment.save');
-Route::delete('/comment/delete/{comment}', [App\Http\Controllers\CommentsController::class, 'deleteComm'])->name('comment.delete');
+Route::post('/comment', [App\Http\Controllers\CommentsController::class, 'saveComm']);
+Route::delete('/comment/delete/{comment}', [App\Http\Controllers\CommentsController::class, 'deleteComm']);
+Route::patch('/comment/edit', [App\Http\Controllers\CommentsController::class, 'editComm']);
+// Route::get('/comment/load/{postId}', [CommentsController::class, 'loadComments']);

@@ -29,39 +29,53 @@
                                                     class="text-decoration-none text-dark fw-bold">{{ $post->user->username }}</a></span>
                                             <p>{{ $post->caption }}</p>
                                         </div>
-                                        <div id="comments-container">
-                                            @foreach ($post->comments as $comment)
-                                                <div class="comment d-flex">
-                                                    <a class="text-dark" href="/profile/{{ $comment->user->id }}"
-                                                        style="margin-right: 5px; font-weight: bold;
+                                        @if ($post->comments->count() > 3)
+                                            <div>
+                                                <a href="/p/{{ $post->id }}"
+                                                    style="text-decoration: none; color: rgb(115, 108, 108)">View all
+                                                    comments</a>
+                                            </div>
+                                        @else
+                                            <div id="comments-container-{{ $post->id }}">
+                                                @foreach ($post->comments as $comment)
+                                                    <div class="comment d-flex">
+                                                        <a class="text-dark" href="/profile/{{ $comment->user->id }}"
+                                                            style="margin-right: 5px; font-weight: bold;
                                                     text-decoration: none">
-                                                        {{ $comment->user->username }}</a>
-                                                    {{ $comment->content }}
-                                                    @if ($comment->user_id === auth()->user()->id || $post->user_id === auth()->user()->id)
-                                                        <div class="dropdown"
-                                                            style="position: absolute;
+                                                            {{ $comment->user->username }}</a>
+                                                        {{ $comment->content }}
+                                                        @if ($comment->user_id === auth()->user()->id || $post->user->id === auth()->user()->id)
+                                                            <div class="dropdown"
+                                                                style="position: absolute;
                                                             right: 0;">
-                                                            <img src="{{ asset('icons/more.png') }}"
-                                                                class="dropdown-toggle" type="button"
-                                                                data-bs-toggle="dropdown" aria-expanded="false"
-                                                                alt="">
-                                                            <ul class="dropdown-menu">
-                                                                <li><a class="friend-action dropdown-item">Edit</a></li>
-                                                                <li><a class="friend-action dropdown-item delete-comment-link"
-                                                                        data-comment-id="{{ $comment->id }}">Delete</a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    @endif
-                                                </div>
-                                            @endforeach
-                                        </div>
+                                                                <img src="{{ asset('icons/more.png') }}"
+                                                                    class="dropdown-toggle" type="button"
+                                                                    data-bs-toggle="dropdown" aria-expanded="false"
+                                                                    alt="">
+                                                                <ul class="dropdown-menu">
+                                                                    <li><a class="comment-action dropdown-item"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#editModal"
+                                                                            data-comment-id="{{ $comment->id }}"
+                                                                            data-post-id="{{ $post->id }}">Edit</a>                                                                
+                                                                    </li>
+                                                                    <li><a class="comment-action dropdown-item delete-comment-link"
+                                                                            data-comment-id="{{ $comment->id }}">Delete</a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        @endif
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        @endif
                                         <div>
-                                            <form method="POST" autocomplete="off">
+                                            <form class="commentForm" method="POST" autocomplete="off">
                                                 @csrf
-                                                <input id="content" type="text" class="comment"
+                                                <input id="content{{ $post->id }}" type="text" class="commentInput"
                                                     placeholder="Say something..." name="content" autofocus>
-                                                <input type="hidden" name="postId" value="{{ $post->id }}">
+                                                <input type="hidden" id="post-id{{ $post->id }} " name="postId"
+                                                    value="{{ $post->id }}">
                                             </form>
                                         </div>
                                     </div>
@@ -73,6 +87,7 @@
                                     {{ $posts->links() }}
                                 </div>
                             </div>
+                            @include('components.modal')
                         </div>
                     </div>
                 </div>
