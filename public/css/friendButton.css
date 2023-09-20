@@ -1,3 +1,4 @@
 .friend-action:hover{
     filter: brightness(85%);
+    cursor: pointer;
 }

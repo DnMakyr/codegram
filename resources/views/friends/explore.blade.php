@@ -20,7 +20,7 @@
                                     </h5>
                                     <p class="card-text">{{ $user->profile->title }}</p>
                                 </div>
-                                <div class="ml-auto">
+                                <div id="button-container-{{ $user->id }}"class="ml-auto">
                                     @if (auth()->user()->isFriendWith($user))
                                         {{-- Already friends, show the "Remove Friend" button --}}
 
@@ -30,9 +30,9 @@
                                                 Friend
                                             </button>
                                             <ul class="dropdown-menu">
-                                                <li><a class="friend-action dropdown-item"
-                                                        href="/unfriend/{{ $user->id }}"
-                                                        user-id="{{ $user->id }}">Unfriend</a></li>
+                                                <li><a class="friend-action dropdown-item unfriendOption"
+                                                        {{-- href="/unfriend/{{ $user->id }}" --}} data-friend-name="{{ $user->username }}"
+                                                        data-user-id="{{ $user->id }}">Unfriend</a></li>
                                             </ul>
                                         </div>
                                     @elseif (auth()->user()->hasFriendRequestFrom($user))
@@ -43,27 +43,22 @@
                                                 Action
                                             </button>
                                             <ul class="dropdown-menu">
-                                                <li><a class="friend-action dropdown-item"
-                                                        href="/accept/{{ $user->id }}"
-                                                        user-id="{{ $user->id }}">Accept</a></li>
-                                                <li><a class="friend-action dropdown-item"
-                                                        href="/decline/{{ $user->id }}"
-                                                        user-id="{{ $user->id }}">Decline</a></li>
+                                                <li><a class="friend-action dropdown-item acceptOption"
+                                                        data-user-id="{{ $user->id }}">Accept</a></li>
+                                                <li><a class="friend-action dropdown-item declineOption"
+                                                        data-user-id="{{ $user->id }}">Decline</a></li>
                                             </ul>
                                         </div>
                                     @elseif (auth()->user()->hasSentFriendRequestTo($user))
                                         {{-- Friend request sent, show the "Cancel Request" button --}}
-                                        <a href="/cancel/{{ $user->id }}">
-                                        <button class="btn btn-warning cancelButton"
-                                            user-id="{{ $user->id }}">Cancel</button>
-                                        </a>
+                                        
+                                            <button class="btn btn-warning cancelButton"
+                                                data-user-id="{{ $user->id }}">Cancel</button>
                                     @else
                                         {{-- Not friends, show the "Add Friend" button --}}
 
-                                      <button class="btn btn-primary addButton"
-                                            user-id="{{ $user->id }}">Add
-                                            Friend</button>
-                                    
+                                        <button id="addFriend" class="btn btn-primary addFriendButton"
+                                            data-user-id="{{ $user->id }}">Add Friend</button>
                                     @endif
                                 </div>
                             </div>

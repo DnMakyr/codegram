@@ -98,11 +98,11 @@ $(document).ready(function () {
 //         });
 //     });
 // });
-const editModal = document.getElementById("editModal");
+// const editModal = document.getElementById("editModal");
 
-editModal.addEventListener("show.bs.modal", function (event) {
-    const trigger = event.relatedTarget;
-    const commentId = trigger.getAttribute("data-comment-id");
-    const postId = trigger.getAttribute("data-post-id"); 
+// editModal.addEventListener("show.bs.modal", function (event) {
+//     const trigger = event.relatedTarget;
+//     const commentId = trigger.getAttribute("data-comment-id");
+//     const postId = trigger.getAttribute("data-post-id"); 
     
-});
+// });

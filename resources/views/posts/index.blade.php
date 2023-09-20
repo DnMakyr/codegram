@@ -57,7 +57,7 @@
                                                                             data-bs-toggle="modal"
                                                                             data-bs-target="#editModal"
                                                                             data-comment-id="{{ $comment->id }}"
-                                                                            data-post-id="{{ $post->id }}">Edit</a>                                                                
+                                                                            data-post-id="{{ $post->id }}">Edit</a>
                                                                     </li>
                                                                     <li><a class="comment-action dropdown-item delete-comment-link"
                                                                             data-comment-id="{{ $comment->id }}">Delete</a>
@@ -87,8 +87,8 @@
                                     {{ $posts->links() }}
                                 </div>
                             </div>
-                            @include('components.modal')
                         </div>
+                        {{-- @include('components.modal') --}}
                     </div>
                 </div>
             </div>
@@ -106,6 +106,7 @@
                             <div style="margin-top: 15px;">
                                 <p style="font-family: sans-serif; color:rgb(9, 106, 210); font-weight: bold">Suggestion</p>
                                 @foreach ($suggests as $suggest)
+                                    @if (!auth()->user()->following->contains($suggest->profile))
                                     <div>
                                         <div class="d-flex align-items-center" style="margin-top: 8px">
                                             <a href="/profile/{{ $suggest->id }}">
@@ -117,6 +118,7 @@
                                                 class="text-decoration-none text-dark fw-bold">{{ $suggest->username }}</a>
                                         </div>
                                     </div>
+                                    @endif
                                 @endforeach
                             </div>
 

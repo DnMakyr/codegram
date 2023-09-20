@@ -29,23 +29,28 @@ $(document).ready(function () {
         reader.readAsDataURL(this.files[0]);
         $("#resizeModal").modal("show");
     });
+
     $(".resize").click(function (event) {
         $image_resize
             .croppie("result", {
                 type: "canvas",
                 size: "viewport",
-                format: "png", // or "jpeg" || "webp"
+                format: "png",
                 quality: 1,
             })
             .then(function (response) {
+                // Send the resized image data to the server
                 $.ajax({
                     url: "/p/create",
                     type: "POST",
-                    data: { '_token': $('meta[name="csrf-token"]').attr('content'),
-                    image: response },
+                    data: {
+                        _token: $('meta[name="csrf-token"]').attr("content"),
+                        image: response,
+                        caption: $("#caption").val(), // Get the caption from an input field
+                    },
                     success: function (data) {
                         $("#resizeModal").modal("hide");
-                        console.log('Image resized and uploaded');
+                        console.log("Image resized and uploaded");
                     },
                 });
             });
