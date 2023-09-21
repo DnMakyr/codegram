@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(function () {
     $(document).on("click", ".unfriendOption", function (e) {
         e.preventDefault();
         var friendId = $(this).data("user-id");
@@ -13,6 +13,7 @@ $(document).ready(function () {
                 success: function (response) {
                     alert("You have unfriended " + friendName);
                     loadButton(friendId);
+                    loadFollow();
                 },
                 error: function (error) {
                     alert(error.responseJSON.message);
@@ -20,6 +21,10 @@ $(document).ready(function () {
             });
         }
     });
+    function loadFollow(){
+        const followButton = "#followButton";
+        $(followButton).load(location.href + " " + followButton);
+    }
 
     function loadButton(userId) {
         let containerId = "#button-container-" + userId;
@@ -37,6 +42,7 @@ $(document).ready(function () {
             success: function (response) {
                 console.log(response);
                 loadButton(friendId);
+                loadFollow();
             },
             error: function (error) {
                 alert(error.responseJSON.message);
@@ -56,6 +62,7 @@ $(document).ready(function () {
             success: function (response) {
                 console.log(response);
                 loadButton(friendId);
+                loadFollow();
             },
             error: function (error) {
                 console.error(error.responseJSON.message);
@@ -75,6 +82,7 @@ $(document).ready(function () {
             success: function (response) {
                 console.log(response);
                 loadButton(friendId);
+                loadFollow();
             },
             error: function (error) {
                 console.error(error.responseJSON.message);
@@ -94,6 +102,7 @@ $(document).ready(function () {
             success: function (response) {
                 console.log(response);
                 loadButton(friendId);
+                loadFollow();
             },
             error: function (error) {
                 console.error(error.responseJSON.message);

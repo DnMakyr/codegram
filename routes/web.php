@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\ExploreController;
 use App\Http\Controllers\FollowsController;
 use App\Http\Controllers\FriendController;
@@ -56,7 +57,8 @@ Route::get('/decline/{user}', [FriendController::class, 'decline']);
 Route::get('/unfriend/{user}', [FriendController::class, 'unfriend']);
 
 //Comments
-Route::post('/comment', [App\Http\Controllers\CommentsController::class, 'saveComm']);
-Route::delete('/comment/delete/{comment}', [App\Http\Controllers\CommentsController::class, 'deleteComm']);
-Route::patch('/comment/edit', [App\Http\Controllers\CommentsController::class, 'editComm']);
-// Route::get('/comment/load/{postId}', [CommentsController::class, 'loadComments']);
+Route::post('/comment', [CommentsController::class, 'saveComm']);
+Route::delete('/comment/delete/{comment}', [CommentsController::class, 'deleteComm']);
+
+Route::get('/comment/{comment}/edit', [CommentsController::class, 'editComm'])->name('posts.editcomm');
+Route::patch('/comment/edit/{comment}', [CommentsController::class, 'updateComm']);

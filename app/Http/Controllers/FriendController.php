@@ -46,6 +46,9 @@ class FriendController extends Controller
     public function cancel(User $user)
     {
         auth()->user()->unfriend($user);
+        if (auth()->user()->following->contains($user->profile)) {
+            auth()->user()->following()->toggle($user->profile);
+        }
         return redirect()->back();
     }
 }

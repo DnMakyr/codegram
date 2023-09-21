@@ -29,7 +29,7 @@
     <script type="text/javascript" src="{{ asset('js/friendButton.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/comment.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/resizeImage.js') }}"></script>
-    
+
     {{-- Styles --}}
     <link rel="stylesheet" href="{{ url('css/followButton.css') }}">
     <link rel="stylesheet" href="{{ url('css/sidebar.css') }}">
@@ -43,12 +43,11 @@
 </head>
 
 <body>
-    <div id="app">
 
-        @include('layouts.sidebar')
-        <main class="py-4">
-            @yield('content')
-        </main>
+    @include('layouts.sidebar')
+    <main class="py-4">
+        @yield('content')
+    </main>
     </div>
     </script>
     <script type="text/javascript">

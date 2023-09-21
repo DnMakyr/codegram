@@ -36,16 +36,18 @@ class CommentsController extends Controller
             return response()->json(['message' => 'You do not have permission to delete this comment'], 403);
         }
     }
-    public function editComm( Request $request){
-        $comment = Comment::find($request->get('commentId'));
-        if ($comment->user_id === auth()->user()->id) {
-            $comment->content = $request->get('newComment');
-            $comment->save();
-            response()->json(['message' => 'Comment edited successfully']);
-            return redirect()->back();
+    public function editComm(Comment $comment){
+        return view('posts.editcomment', compact('comment'));
+    }
 
-        } else {
-            return response()->json(['message' => 'You do not have permission to edit this comment'], 403);
-        }
+    public function updateComm(Comment $comment){
+        $data = request()->validate(
+            [
+                'content' => 'required|string|max:255',
+            ]
+        );
+        $comment->update($data);
+        return redirect('/p/' . $comment->post->id)->with('success', 'Comment updated successfully');
     }
 }
+

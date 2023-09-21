@@ -31,7 +31,7 @@
                                     class="text-dark">{{ $post->user->username }}</span></a></span>{{ $post->caption }}
                     </p>
                 </div>
-                <div id="comments-container">
+                <div id="comments-container-{{ $post->id }}">
 
                     @foreach ($post->comments as $comment)
                         <div class="comment d-flex mb-2">
@@ -43,15 +43,16 @@
                                 {{ $comment->user->username }}</a>
 
                             {{ $comment->content }}
-                            @if ($comment->user_id === auth()->user()->id || $post->user_id === auth()->user()->id)
-                                <div class="dropdown"
-                                    style="position: absolute;
-                                                   right: 0;">
+                            @if ($comment->user_id === auth()->user()->id || $post->user->id === auth()->user()->id)
+                                <div class="dropdown" style="position: absolute;
+                            right: 0;">
                                     <img src="{{ asset('icons/more.png') }}" class="dropdown-toggle" type="button"
                                         data-bs-toggle="dropdown" aria-expanded="false" alt="">
                                     <ul class="dropdown-menu">
-                                        <li><a class="friend-action dropdown-item">Edit</a></li>
-                                        <li><a class="friend-action dropdown-item delete-comment-link"
+                                        <li><a class="comment-action dropdown-item"
+                                                href="/comment/{{ $comment->id }}/edit">Edit</a>
+                                        </li>
+                                        <li><a class="comment-action dropdown-item delete-comment-link"
                                                 data-comment-id="{{ $comment->id }}">Delete</a>
                                         </li>
                                     </ul>
@@ -62,11 +63,11 @@
 
                 </div>
                 <div class="interaction">
-                    <form method="POST" autocomplete="off">
+                    <form class="commentForm" method="POST" autocomplete="off">
                         @csrf
-                        <input id="content" type="text" class="commentInput" size="60"
+                        <input id="content{{ $post->id }}" type="text" class="commentInput"
                             placeholder="Say something..." name="content" autofocus>
-                        <input type="hidden" name="postId" value="{{ $post->id }}">
+                        <input type="hidden" id="post-id{{ $post->id }} " name="postId" value="{{ $post->id }}">
                     </form>
                 </div>
             </div>

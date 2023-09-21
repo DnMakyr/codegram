@@ -16,6 +16,7 @@
         "laravel/telescope": "^4.16",
         "laravel/tinker": "^2.8",
         "laravel/ui": "^4.2",
+        "maize-tech/laravel-markable": "^2.1",
         "multicaret/laravel-acquaintances": "^3.5"
     },
     "require-dev": {

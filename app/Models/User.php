@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Scout\Searchable;
+use Maize\Markable\Markable;
 use Multicaret\Acquaintances\Traits\CanFollow;
 use Multicaret\Acquaintances\Traits\CanLike;
 use Multicaret\Acquaintances\Traits\Friendable;
@@ -15,7 +16,7 @@ use Multicaret\Acquaintances\Traits\Friendable;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, Searchable;
-    use Friendable, CanLike, CanFollow;
+    use Friendable, Markable;
 
     /**
      * The attributes that are mass assignable.

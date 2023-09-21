@@ -5,12 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
+use Maize\Markable\Markable;
+use Maize\Markable\Models\Reaction;
 use Multicaret\Acquaintances\Traits\CanBeLiked;
 
 class Post extends Model
 {   
     use HasFactory;
-    use Searchable, CanBeLiked;
+    use Searchable, Markable;
     protected $fillable = [
         'caption',
         'image',
@@ -21,4 +23,9 @@ class Post extends Model
     public function comments(){
         return $this->hasMany('App\Models\Comment');
     }
+    protected static array $mark = [
+        Like::class,
+        Reaction::class,
+
+    ];
 }
