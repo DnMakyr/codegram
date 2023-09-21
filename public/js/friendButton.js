@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $(".unfriendOption").click(function (e) {
+    $(document).on("click", ".unfriendOption", function (e) {
         e.preventDefault();
         var friendId = $(this).data("user-id");
         var friendName = $(this).data("friend-name");
@@ -20,15 +20,12 @@ $(document).ready(function () {
             });
         }
     });
-});
 
-function loadButton(userId) {
-    let containerId = "#button-container-" + userId;
-    $(containerId).load(location.href + " " + containerId);
-}
-
-$(document).ready(function () {
-    $(".addFriendButton").click(function (e) {
+    function loadButton(userId) {
+        let containerId = "#button-container-" + userId;
+        $(containerId).load(location.href + " " + containerId);
+    }
+    $(document).on("click", ".addFriendButton", function (e) {
         e.preventDefault();
         var friendId = $(this).data("user-id");
         $.ajax({
@@ -46,9 +43,8 @@ $(document).ready(function () {
             },
         });
     });
-});
-$(document).ready(function () {
-    $(".cancelButton").click(function (e) {
+
+    $(document).on("click", ".cancelButton", function (e) {
         e.preventDefault();
         var friendId = $(this).data("user-id");
         $.ajax({
@@ -66,9 +62,8 @@ $(document).ready(function () {
             },
         });
     });
-});
-$(document).ready(function () {
-    $(".acceptOption").click(function (e) {
+
+    $(document).on("click", ".acceptOption", function (e) {
         e.preventDefault();
         var friendId = $(this).data("user-id");
         $.ajax({
@@ -86,9 +81,8 @@ $(document).ready(function () {
             },
         });
     });
-});
-$(document).ready(function () {
-    $(".declineOption").click(function (e) {
+
+    $(document).on("click", ".declineOption", function (e) {
         e.preventDefault();
         var friendId = $(this).data("user-id");
         $.ajax({
