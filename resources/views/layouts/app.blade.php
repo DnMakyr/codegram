@@ -29,7 +29,8 @@
     <script type="text/javascript" src="{{ asset('js/friendButton.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/comment.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/resizeImage.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/likeButton.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/interactButton.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/search.js') }}"></script>
 
     {{-- Styles --}}
     <link rel="stylesheet" href="{{ url('css/followButton.css') }}">
@@ -38,6 +39,7 @@
     <link rel="stylesheet" href="{{ url('css/friendButton.css') }}">
     <link rel="stylesheet" href="{{ url('css/commentForm.css') }}">
     <link rel="stylesheet" href="{{ url('css/modal.css') }}">
+    <link rel="stylesheet" href="{{ url('css/likeButton.css') }}">
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <meta name="csrf-token" content="{{ csrf_token() }}">
 

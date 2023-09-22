@@ -24,14 +24,21 @@
                                             <img src="/storage/{{ $post->image }}" alt="" class="img-fluid"
                                                 style="border-radius: 3px ;max-height: 600px; max-width: 445px; object-fit: contain">
                                         </div>
-                                        <div class="mt-4" id="likeContainer-{{ $post->id }}">
-                                            <button class="btn btn-primary btn-sm likeButton"
-                                                data-post-id="{{ $post->id }}"
+                                        <div class="mt-2" id="likeContainer-{{ $post->id }}">
+                                            <button class="btn likeButton" data-post-id="{{ $post->id }}"
                                                 status="{{ $liked[$post->id] ? 'liked' : 'not-liked' }}">
-                                                {{ $liked[$post->id] ? 'Liked' : 'Like' }}
+                                                @if (!$liked[$post->id])
+                                                    <img src="{{ asset('icons/heart.png') }}" alt="">
+                                                @else
+                                                    <img src="{{ asset('icons/red_heart.png') }}" alt="">
+                                                @endif
                                             </button>
                                         </div>
-                                        <div class="card-text d-flex" style="margin-top: 30px">
+                                        <span class=""" id="likeCount-{{ $post->id }}"
+                                            style="font-weight: bold">{{ $post->likersCount() }}
+                                            {{ $post->likersCount() > 1 ? 'likes' : 'like' }}
+                                        </span>
+                                        <div class="card-text d-flex" style="margin-top: 10px">
                                             <span class="me-1"><a href="/profile/{{ $post->user->id }}"
                                                     class="text-decoration-none text-dark fw-bold">{{ $post->user->username }}</a></span>
                                             <p>{{ $post->caption }}</p>

@@ -7,6 +7,7 @@ use App\Http\Controllers\FriendController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LikeReactController;
 use App\Http\Controllers\PostsController;
+use App\Http\Controllers\SearchController;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -28,8 +29,6 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::post('follow/{user}', [FollowsController::class, 'store']);
-
-Route::view('/search', 'posts.search');
 
 //Home
 Route::get('/', [PostsController::class, 'homepage']);
@@ -66,3 +65,6 @@ Route::patch('/comment/edit/{comment}', [CommentsController::class, 'updateComm'
 
 //Like
 Route::get('/like/{post}', [LikeReactController::class, 'likePost']);
+
+//Search
+Route::get('/search', [SearchController::class, 'search']);

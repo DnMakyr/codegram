@@ -23,6 +23,7 @@ $(function () {
     });
     function loadFollow(){
         const followButton = "#followButton";
+        $(followButton).html("");
         $(followButton).load(location.href + " " + followButton);
     }
 

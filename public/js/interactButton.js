@@ -21,6 +21,7 @@ $(function () {
 });
 function reload(postId) {
     let buttonId = "#likeContainer-" + postId;
-    $(buttonId).html("")
+    let likeId = "#likeCount-" + postId; 
     $(buttonId).load(location.href + " " + buttonId);
+    $(likeId).load(location.href + " " + likeId);
 }
