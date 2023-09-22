@@ -27,33 +27,42 @@ class PostsController extends Controller
             ->inRandomOrder()
             ->limit(5)
             ->get();
-        return view('posts.index', compact('posts', 'suggests', 'comments'));
+
+        $liked = [];
+
+        foreach ($posts as $post) {
+            $liked[$post->id] = auth()->user()->hasLiked($post);
+        }
+
+
+
+        return view('posts.index', compact('posts', 'suggests', 'comments', 'liked'));
     }
     //
     public function create()
     {
         return view('posts.create');
     }
-        public function store()
-        {
-            $data = request()->validate([
-                'caption' => 'required',
-                'image' => ['required', 'image'],
-            ]);
+    public function store()
+    {
+        $data = request()->validate([
+            'caption' => 'required',
+            'image' => ['required', 'image'],
+        ]);
 
-            $imagePath = (request('image')->store('uploads', 'public'));
+        $imagePath = (request('image')->store('uploads', 'public'));
 
-            $image = Image::make(public_path("storage/{$imagePath}"));
-            $image->save();
+        $image = Image::make(public_path("storage/{$imagePath}"));
+        $image->save();
 
-            auth()->user()->posts()->create([
-                'caption' => $data['caption'],
-                'image' => $imagePath,
-            ]);
+        auth()->user()->posts()->create([
+            'caption' => $data['caption'],
+            'image' => $imagePath,
+        ]);
 
 
-            return redirect('/profile/' . auth()->user()->id);
-        }
+        return redirect('/profile/' . auth()->user()->id);
+    }
     public function show(Post $post)
     {
         return view('posts.show', compact('post'));

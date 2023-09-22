@@ -5,7 +5,7 @@ $(function () {
         var friendName = $(this).data("friend-name");
         if (confirm(`Are you sure you want to unfriend ${friendName}?`)) {
             $.ajax({
-                type: "GET",
+                type: "post",
                 url: `/unfriend/${friendId}`,
                 data: {
                     _token: $("input[name='_token']").val(), // Include CSRF token

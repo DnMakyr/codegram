@@ -29,6 +29,7 @@
     <script type="text/javascript" src="{{ asset('js/friendButton.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/comment.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/resizeImage.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/likeButton.js') }}"></script>
 
     {{-- Styles --}}
     <link rel="stylesheet" href="{{ url('css/followButton.css') }}">

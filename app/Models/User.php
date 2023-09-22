@@ -9,14 +9,13 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Scout\Searchable;
 use Maize\Markable\Markable;
-use Multicaret\Acquaintances\Traits\CanFollow;
 use Multicaret\Acquaintances\Traits\CanLike;
 use Multicaret\Acquaintances\Traits\Friendable;
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, Searchable;
-    use Friendable, Markable;
+    use Friendable, CanLike;
 
     /**
      * The attributes that are mass assignable.

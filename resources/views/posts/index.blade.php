@@ -24,12 +24,19 @@
                                             <img src="/storage/{{ $post->image }}" alt="" class="img-fluid"
                                                 style="border-radius: 3px ;max-height: 600px; max-width: 445px; object-fit: contain">
                                         </div>
+                                        <div class="mt-4" id="likeContainer-{{ $post->id }}">
+                                            <button class="btn btn-primary btn-sm likeButton"
+                                                data-post-id="{{ $post->id }}"
+                                                status="{{ $liked[$post->id] ? 'liked' : 'not-liked' }}">
+                                                {{ $liked[$post->id] ? 'Liked' : 'Like' }}
+                                            </button>
+                                        </div>
                                         <div class="card-text d-flex" style="margin-top: 30px">
                                             <span class="me-1"><a href="/profile/{{ $post->user->id }}"
                                                     class="text-decoration-none text-dark fw-bold">{{ $post->user->username }}</a></span>
                                             <p>{{ $post->caption }}</p>
                                         </div>
-                                        @if ($post->comments->count() > 3)
+                                        @if ($post->comments->count() > 2)
                                             <div>
                                                 <a href="/p/{{ $post->id }}"
                                                     style="text-decoration: none; color: rgb(115, 108, 108)">View all
@@ -107,17 +114,17 @@
                                 <p style="font-family: sans-serif; color:rgb(9, 106, 210); font-weight: bold">Suggestion</p>
                                 @foreach ($suggests as $suggest)
                                     @if (!auth()->user()->following->contains($suggest->profile))
-                                    <div>
-                                        <div class="d-flex align-items-center" style="margin-top: 8px">
-                                            <a href="/profile/{{ $suggest->id }}">
-                                                <img src="{{ $suggest->profile->profileImage() }}"
-                                                    class="rounded-circle me-2"
-                                                    style="width: 44px; height: 44px; object-fit: cover">
-                                            </a>
-                                            <a href="/profile/{{ $suggest->id }}"
-                                                class="text-decoration-none text-dark fw-bold">{{ $suggest->username }}</a>
+                                        <div>
+                                            <div class="d-flex align-items-center" style="margin-top: 8px">
+                                                <a href="/profile/{{ $suggest->id }}">
+                                                    <img src="{{ $suggest->profile->profileImage() }}"
+                                                        class="rounded-circle me-2"
+                                                        style="width: 44px; height: 44px; object-fit: cover">
+                                                </a>
+                                                <a href="/profile/{{ $suggest->id }}"
+                                                    class="text-decoration-none text-dark fw-bold">{{ $suggest->username }}</a>
+                                            </div>
                                         </div>
-                                    </div>
                                     @endif
                                 @endforeach
                             </div>

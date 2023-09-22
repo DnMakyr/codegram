@@ -14,7 +14,7 @@ class FriendController extends Controller
     }
     public function add(User $user)
     {
-        auth()->user()->befriend(($user));
+        auth()->user()->befriend($user);
         if (!auth()->user()->following->contains($user->profile)) {
             auth()->user()->following()->toggle($user->profile);
         }

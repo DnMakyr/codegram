@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class CommentsController extends Controller
@@ -36,18 +37,23 @@ class CommentsController extends Controller
             return response()->json(['message' => 'You do not have permission to delete this comment'], 403);
         }
     }
-    public function editComm(Comment $comment){
-        return view('posts.editcomment', compact('comment'));
+    public function editComm(Comment $comment,)
+    {
+        if (auth()->user()->id === $comment->user_id) {
+            return view('posts.editcomment', compact('comment'));
+        }
     }
 
-    public function updateComm(Comment $comment){
-        $data = request()->validate(
-            [
-                'content' => 'required|string|max:255',
-            ]
-        );
-        $comment->update($data);
-        return redirect('/p/' . $comment->post->id)->with('success', 'Comment updated successfully');
+    public function updateComm(Comment $comment,)
+    {
+        if (auth()->user()->id === $comment->user_id) {
+            $data = request()->validate(
+                [
+                    'content' => 'required|string|max:255',
+                ]
+            );
+            $comment->update($data);
+            return redirect('/p/' . $comment->post->id)->with('success', 'Comment updated successfully');
+        }
     }
 }
-

@@ -5,6 +5,7 @@ use App\Http\Controllers\ExploreController;
 use App\Http\Controllers\FollowsController;
 use App\Http\Controllers\FriendController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LikeReactController;
 use App\Http\Controllers\PostsController;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -62,3 +63,6 @@ Route::delete('/comment/delete/{comment}', [CommentsController::class, 'deleteCo
 
 Route::get('/comment/{comment}/edit', [CommentsController::class, 'editComm'])->name('posts.editcomm');
 Route::patch('/comment/edit/{comment}', [CommentsController::class, 'updateComm']);
+
+//Like
+Route::get('/like/{post}', [LikeReactController::class, 'likePost']);
