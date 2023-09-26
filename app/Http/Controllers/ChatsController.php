@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Conversation;
+use App\Models\Message;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 
 class ChatsController extends Controller
 {
@@ -18,7 +19,6 @@ class ChatsController extends Controller
     public function index()
     {
         $conversations = Conversation::where('participant_1', Auth::user()->id)->orWhere('participant_2', Auth::user()->id)->get();
-        // dd($friends);
         return view('chat.index', compact('conversations'));
     }
 
@@ -33,15 +33,28 @@ class ChatsController extends Controller
         })->first();
 
         if ($existingConversation) {
-            return response()->json(['message' => 'Conversation already exists'], 200);
+            return redirect()->route('chat.show', $existingConversation->id);
         }
         $conversation = new Conversation();
         $conversation->participant_1 = $loginUser->id;
         $conversation->participant_2 = $user->id;
         $conversation->save();
 
-        dd($conversation);
-
-        // return redirect()->route('chat.show', $conversation->id);
+        return view('chat.index');
+    }
+    public function loadChat($conversationId)
+    {
+        $messages = Message::where('conversation_id', $conversationId)->with('user')->get();
+        $conversation_id = $conversationId;
+        return view('chat.show', compact('messages', 'conversation_id'));
+    }
+    public function sendMessage(Request $request)
+    {   
+        $message = new Message();
+        $message->conversation_id = request('conversation_id');
+        $message->sender = Auth::user()->id;
+        $message->message = $request->get('message');
+        $message->save();
+        return redirect()->back();
     }
 }

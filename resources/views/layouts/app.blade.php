@@ -31,6 +31,7 @@
     <script type="text/javascript" src="{{ asset('js/resizeImage.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/interactButton.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/search.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/chat.js') }}"></script>
 
     {{-- Styles --}}
     <link rel="stylesheet" href="{{ url('css/followButton.css') }}">

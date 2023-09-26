@@ -72,8 +72,7 @@ Route::get('/like/{post}', [LikeReactController::class, 'likePost']);
 Route::get('/search', [SearchController::class, 'search']);
 
 //chat
-Route::get('/chat', [ChatsController::class, 'index']);
+Route::get('/chat', [ChatsController::class, 'index'])->name('chat.index');
 Route::get('/chat/{user}/create', [ChatsController::class, 'createChat']);
-Route::get('/send/{user}', [ChatsController::class, 'sendMessage']);
-
-
+Route::get('/chat/load/{conversation}', [ChatsController::class, 'loadChat'])->name('chat.show');
+Route::post('/chat/{conversation}/send', [ChatsController::class, 'sendMessage']);

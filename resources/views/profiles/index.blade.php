@@ -28,7 +28,7 @@
 
                         <button id="chatButton"
                             class="ms-1 btn btn-primary btn-sm"style=" display: @if (Auth::user() && Auth::user()->id === $user->id) none @endif;">
-                            <a href="/chat/{{ $user->id }}" style="color: white; text-decoration: none">Chat</a>
+                            <a href="/chat/{{ $user->id }}/create" style="color: white; text-decoration: none">Chat</a>
                         </button>
 
                         {{-- Add Post Button --}}
