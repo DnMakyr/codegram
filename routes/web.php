@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChatsController;
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\ExploreController;
 use App\Http\Controllers\FollowsController;
@@ -7,6 +8,7 @@ use App\Http\Controllers\FriendController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LikeReactController;
 use App\Http\Controllers\PostsController;
+use App\Http\Controllers\PusherController;
 use App\Http\Controllers\SearchController;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -68,3 +70,10 @@ Route::get('/like/{post}', [LikeReactController::class, 'likePost']);
 
 //Search
 Route::get('/search', [SearchController::class, 'search']);
+
+//chat
+Route::get('/chat', [ChatsController::class, 'index']);
+Route::get('/chat/{user}/create', [ChatsController::class, 'createChat']);
+Route::get('/send/{user}', [ChatsController::class, 'sendMessage']);
+
+

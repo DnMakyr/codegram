@@ -14,24 +14,31 @@
                     <div class="d-flex">
                         {{-- Friend Button --}}
                         @if (auth()->user() && auth()->user()->id !== $user->id)
-                                @include('components.friendbutton')
-                            @endif
-                            {{-- Follow Button --}}
-                            <button id="followButton"
-                                class="follow-button btn btn-primary btn-sm @if ($follows) following-button @endif dimmerHover"
-                                style="display: @if (Auth::user() && Auth::user()->id === $user->id) none @endif;"
-                                user-id="{{ $user->id }}" follows="{{ $follows ? 'true' : 'false' }}">
-                                {{ $follows ? 'Following' : 'Follow' }}
-                            </button>
+                            @include('components.friendbutton')
 
-                            {{-- Add Post Button --}}
-                            @can('update', $user->profile)
-                                <a href="/p/create" class="btn btn-primary btn-sm " style="margin-right: 5px">Add New Post</a>
-                            @endcan
-                            {{-- Edit Profile Button --}}
-                            @can('update', $user->profile)
-                                <a href="/profile/{{ $user->id }}/edit" class="btn btn-primary btn-sm">Edit Profile</a>
-                            @endcan
+                            {{-- Create Chat Button --}}
+                        @endif
+                        {{-- Follow Button --}}
+                        <button id="followButton"
+                            class="follow-button btn btn-primary btn-sm @if ($follows) following-button @endif dimmerHover"
+                            style="display: @if (Auth::user() && Auth::user()->id === $user->id) none @endif;" user-id="{{ $user->id }}"
+                            follows="{{ $follows ? 'true' : 'false' }}">
+                            {{ $follows ? 'Following' : 'Follow' }}
+                        </button>
+
+                        <button id="chatButton"
+                            class="ms-1 btn btn-primary btn-sm"style=" display: @if (Auth::user() && Auth::user()->id === $user->id) none @endif;">
+                            <a href="/chat/{{ $user->id }}" style="color: white; text-decoration: none">Chat</a>
+                        </button>
+
+                        {{-- Add Post Button --}}
+                        @can('update', $user->profile)
+                            <a href="/p/create" class="btn btn-primary btn-sm " style="margin-right: 5px">Add New Post</a>
+                        @endcan
+                        {{-- Edit Profile Button --}}
+                        @can('update', $user->profile)
+                            <a href="/profile/{{ $user->id }}/edit" class="btn btn-primary btn-sm">Edit Profile</a>
+                        @endcan
                     </div>
                 </div>
                 {{-- Statistic div --}}

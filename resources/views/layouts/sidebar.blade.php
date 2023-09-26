@@ -37,9 +37,9 @@
                     <img src="{{ asset('icons/search.png') }}" class=" me-3"><span>Search</span>
                 </div>
             </a>
-            <a href="#" class=" text-dark">
+            <a href="/chat" class=" text-dark">
                 <div class="items">
-                    <img src="{{ asset('icons/message.png') }}" class=" me-3"><span>Message</span>
+                    <img src="{{ asset('icons/message.png') }}" class=" me-3"><span>Chat</span>
                 </div>
             </a>
             <a href="#" class=" text-dark">

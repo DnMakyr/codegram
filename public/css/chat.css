@@ -1,0 +1,15 @@
+.bubble {
+    background-color: #1877f2;
+    border-style: initial;
+    color: white;
+    border-radius: 8px;
+    align-items: center;
+}
+.left {
+    float: left;
+    height: auto;
+}
+.right {
+    float: right;
+    height: auto;
+}

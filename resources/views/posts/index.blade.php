@@ -24,7 +24,7 @@
                                             <img src="/storage/{{ $post->image }}" alt="" class="img-fluid"
                                                 style="border-radius: 3px ;max-height: 600px; max-width: 445px; object-fit: contain">
                                         </div>
-                                        <div class="mt-2" id="likeContainer-{{ $post->id }}">
+                                        <div class="mt-1" id="likeContainer-{{ $post->id }}">
                                             <button class="btn likeButton" data-post-id="{{ $post->id }}"
                                                 status="{{ $liked[$post->id] ? 'liked' : 'not-liked' }}">
                                                 @if (!$liked[$post->id])
@@ -135,7 +135,6 @@
                                     @endif
                                 @endforeach
                             </div>
-
                         </div>
                     </div>
                 </div>

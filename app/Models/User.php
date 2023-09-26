@@ -8,7 +8,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Scout\Searchable;
-use Maize\Markable\Markable;
 use Multicaret\Acquaintances\Traits\CanLike;
 use Multicaret\Acquaintances\Traits\Friendable;
 
@@ -75,4 +74,14 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Profile::class);
     }
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
+    public function conversations()
+    {
+        return $this->hasMany(Conversation::class, 'participant_1')
+            ->orWhere('participant_2', $this->id);
+    }
+
 }
