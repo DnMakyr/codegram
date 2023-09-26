@@ -6,30 +6,31 @@
             <div class="col-9">
                 <div class="card">
                     <div class="card-header" style="font-weight: bold; font-size:20px">
-                        Conversation
+                        <img class="rounded-circle" src="{{ $replier->profile->profileImage() }}" alt=""
+                            style="max-width: 55px; object-fit:cover"> {{ $replier->username }}
                         <a href="/chat">
                             <button class="btn btn-primary float-end">
                                 Return
                             </button>
                         </a>
                     </div>
-                    <div class="card-body" style="height: 88vh; overflow-y: auto">
-                        <div class="chat-box">
+                    <div class="card-body" id="chat-container">
+                        <div class="chat-box" id="chat-box">
                             @foreach ($messages as $message)
-                                <div class="mb-2 d-flex" style="width: 100%">
-                                    <div class>
+                                <div class="mb-2 d-flex @if ($message->sender === auth()->user()->id) self @else other @endif">
+                                    <div class="message">
                                         <img src="{{ App\Models\User::find($message->sender)->profile->profileImage() }}"
                                             alt="" class="w-100 rounded-circle"
                                             style="max-width: 50px; max-height: 50px; object-fit: cover">
                                     </div>
-                                    <div class="ms-3">
-                                        <div class="fw-bold">
+                                    <div class="ms-3 bubble">
+                                        {{-- <div class="fw-bold">
                                             @if ($message->sender === auth()->user()->id)
                                                 You
                                             @else
                                                 {{ App\Models\User::find($message->sender)->username }}
                                             @endif
-                                        </div>
+                                        </div> --}}
                                         <div>{{ $message->message }}</div>
                                     </div>
                                 </div>

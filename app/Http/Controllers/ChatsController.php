@@ -40,16 +40,18 @@ class ChatsController extends Controller
         $conversation->participant_2 = $user->id;
         $conversation->save();
 
-        return view('chat.index');
+        return view('chat.index', compact('conversation'));
     }
-    public function loadChat($conversationId)
+    public function loadChat(Conversation $conversation)
     {
+        $conversationId = $conversation->id;
+        $replier = User::find($conversation->participant_2);
         $messages = Message::where('conversation_id', $conversationId)->with('user')->get();
         $conversation_id = $conversationId;
-        return view('chat.show', compact('messages', 'conversation_id'));
+        return view('chat.show', compact('messages', 'conversation_id', 'replier'));
     }
     public function sendMessage(Request $request)
-    {   
+    {
         $message = new Message();
         $message->conversation_id = request('conversation_id');
         $message->sender = Auth::user()->id;

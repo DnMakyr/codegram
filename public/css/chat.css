@@ -1,9 +1,10 @@
 .bubble {
     background-color: #1877f2;
-    border-style: initial;
-    color: white;
-    border-radius: 8px;
-    align-items: center;
+    max-width: 30%; /* Adjust the maximum width of the message bubble */
+    padding: 10px;
+    margin: 5px;
+    border-radius: 18px;
+    word-wrap: break-word;
 }
 .left {
     float: left;
@@ -12,4 +13,19 @@
 .right {
     float: right;
     height: auto;
+}
+#chat-container {
+    overflow-y: auto;
+    height: 88vh;
+}
+.self { /* Your preferred background color */
+    color: white; /* Text color for user's own messages */
+    display: flex; /* Right-align user's own messages */
+    flex-direction: row-reverse;
+}
+
+/* Styling for other users' messages */
+.other {
+    color: white;
+    align-self: flex-start; /* Left-align other users' messages */
 }
