@@ -5,12 +5,9 @@ use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\ExploreController;
 use App\Http\Controllers\FollowsController;
 use App\Http\Controllers\FriendController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LikeReactController;
 use App\Http\Controllers\PostsController;
-use App\Http\Controllers\PusherController;
 use App\Http\Controllers\SearchController;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -34,21 +31,18 @@ Route::post('follow/{user}', [FollowsController::class, 'store']);
 
 //Home
 Route::get('/', [PostsController::class, 'homepage']);
-//Create post
+
+//Post
 Route::get('/p/create', [PostsController::class, 'create']);
-//Show post
 Route::get('/p/{post}', [PostsController::class, 'show']);
-//Store post
 Route::post('/p', [PostsController::class, 'store']);
-// //Redirect after login
-// Route::get('/', [HomeController::class, 'index'])->name('profile.show');
-//Show profile
+
+//Profile
 Route::get('/profile/{user}', [App\Http\Controllers\ProfilesController::class, 'index'])->name('profile.show');
-//Edit profile
 Route::get('/profile/{user}/edit', [App\Http\Controllers\ProfilesController::class, 'edit'])->name('profile.edit');
 Route::patch('/profile/{user}', [App\Http\Controllers\ProfilesController::class, 'update'])->name('profile.update');
 
-
+//Explore
 Route::get('/explore', [ExploreController::class, 'index'])->name('friends.explore');
 
 //Friends
@@ -76,3 +70,6 @@ Route::get('/chat', [ChatsController::class, 'index'])->name('chat.index');
 Route::get('/chat/{user}/create', [ChatsController::class, 'createChat']);
 Route::get('/chat/load/{conversation}', [ChatsController::class, 'loadChat'])->name('chat.show');
 Route::post('/chat/{conversation}/send', [ChatsController::class, 'sendMessage']);
+
+//notification
+Route::get('/notifications', [App\Http\Controllers\NotificationController::class, 'index'])->name('notifications.index');

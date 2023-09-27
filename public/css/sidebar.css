@@ -91,3 +91,11 @@ div.items {
     bottom: 0;
     margin-bottom: 20px;
 }
+span.notification-count {
+    margin-left: 7px;
+    padding: 0px 2px;
+    border-radius: 2px;
+    background-color: #c73947d7;
+    color: white;
+    font-weight: bold;
+}

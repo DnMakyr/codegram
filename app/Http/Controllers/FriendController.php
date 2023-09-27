@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Notifications\AcceptNotification;
 use Illuminate\Http\Request;
+use App\Notifications\FriendRequestNotification;
 
 class FriendController extends Controller
 {
@@ -15,6 +17,7 @@ class FriendController extends Controller
     public function add(User $user)
     {
         auth()->user()->befriend($user);
+        $user->notify(new FriendRequestNotification(auth()->user()));
         if (!auth()->user()->following->contains($user->profile)) {
             auth()->user()->following()->toggle($user->profile);
         }
@@ -23,6 +26,7 @@ class FriendController extends Controller
     public function accept(User $user)
     {
         auth()->user()->acceptFriendRequest($user);
+        $user->notify(new AcceptNotification(auth()->user()));
         if (!auth()->user()->following->contains($user->profile)) {
             auth()->user()->following()->toggle($user->profile);
         }
