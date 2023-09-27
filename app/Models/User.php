@@ -83,5 +83,4 @@ class User extends Authenticatable
         return $this->hasMany(Conversation::class, 'participant_1')
             ->orWhere('participant_2', $this->id);
     }
-
 }

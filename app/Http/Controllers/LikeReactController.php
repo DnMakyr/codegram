@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Notifications\LikeNotification;
 use Illuminate\Http\Request;
 use Maize\Markable\Models\Like;
 
@@ -21,12 +22,11 @@ class LikeReactController extends Controller
         if (!$user->hasLiked($post)) {
             // If not, like the post
             $user->like($post);
-            return response()->json(['message' => 'Post liked successfully'], 200);
+            $post->user->notify(new LikeNotification($user, $post));
         }
         else {
             // If yes, remove the like
             $user->unlike($post);
-            return response()->json(['message' => 'Post unliked successfully'], 200);
         }
         return redirect()->back();
     }

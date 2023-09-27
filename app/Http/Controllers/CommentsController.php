@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
+use App\Notifications\CommentNotification;
 use Illuminate\Http\Request;
 
 class CommentsController extends Controller
@@ -28,6 +29,9 @@ class CommentsController extends Controller
         $comment->post_id = $postId;
         $comment->content = $content;
         $comment->save();
+        $post = Post::find($postId);
+        $user = User::find($post->user_id);
+        $user->notify(new CommentNotification(auth()->user(), $post));
 
         // Redirect back to the post or wherever you want
         return redirect()->back();

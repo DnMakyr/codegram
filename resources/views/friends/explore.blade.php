@@ -1,7 +1,7 @@
 @extends('layouts.app') {{-- Assuming you have a layout file --}}
 @section('content')
     <div class="container">
-        <h1 style="font-weight: bold">Explore Users</h1>
+        <h1>Explore Users</h1>
         <div class="row pt-3">
             {{-- <div class="scrolling-pagination"> --}}
             @foreach ($users as $user)

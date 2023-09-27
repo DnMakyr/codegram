@@ -42,9 +42,11 @@
                     <img src="{{ asset('icons/message.png') }}" class=" me-3"><span>Chat</span>
                 </div>
             </a>
-            <a href="#" class=" text-dark">
+            <a href="/notifications" class=" text-dark">
                 <div class="items">
                     <img src="{{ asset('icons/heart.png') }}" class=" me-3"><span>Notification</span>
+                    <span class="notification-count" style=" @if (auth()->user()->unreadNotifications()->count() === 0) display:none @endif">
+                        {{ auth()->user()->unreadNotifications()->count() }}</span>
                 </div>
             </a>
             <a href="/p/create" class="">

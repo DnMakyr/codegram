@@ -42,6 +42,7 @@
     <link rel="stylesheet" href="{{ url('css/modal.css') }}">
     <link rel="stylesheet" href="{{ url('css/likeButton.css') }}">
     <link rel="stylesheet" href="{{ url('css/chat.css') }}">
+    <link rel="stylesheet" href="{{ url('css/notification.css') }}">
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
