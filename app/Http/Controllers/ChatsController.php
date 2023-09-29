@@ -7,7 +7,7 @@ use App\Models\Message;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-
+use App\Events\Message as MessageEvent;
 class ChatsController extends Controller
 {
     //Add the below functions
@@ -52,11 +52,16 @@ class ChatsController extends Controller
     }
     public function sendMessage(Request $request)
     {
-        $message = new Message();
-        $message->conversation_id = request('conversation_id');
-        $message->sender = Auth::user()->id;
-        $message->message = $request->get('message');
-        $message->save();
+        // $message = new Message();
+        // $message->conversation_id = request('conversation_id');
+        // $message->sender = Auth::user()->id;
+        // $message->message = $request->get('message');
+        // $message->save();
+        $message = $request->get('message');
+        $user = Auth::user();
+        $conversationId = $request->get('conversation_id');
+
+        event(new MessageEvent($message, $user, $conversationId));
         return redirect()->back();
     }
 }

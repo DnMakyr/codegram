@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-3">
+            {{-- <div class="col-3">
                 <div class="card">
                     <div class="card-header" style="font-weight: bold; font-size: 20px">Chat</div>
                     <div class="card-body" style="height: 95vh">
@@ -28,7 +28,9 @@
                         @endforeach
                     </div>
                 </div>
-            </div>
+                <chat/>
+            </div> --}}
+            <>
         </div>
     </div>
 @endsection

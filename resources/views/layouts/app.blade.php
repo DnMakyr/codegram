@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
     <script type="text/javascript" src="{{ asset('js/followButton.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/friendButton.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/comment.js') }}"></script>
@@ -49,13 +50,13 @@
 </head>
 
 <body>
-
-    @include('layouts.sidebar')
-    <main class="py-4">
-        @yield('content')
-    </main>
+    <div id="app">
+        @include('layouts.sidebar')
+        <main class="py-4">
+            @yield('content')
+        </main>
     </div>
-    </script>
+
     <script type="text/javascript">
         $('ul.pagination').hide();
         $(function() {

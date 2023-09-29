@@ -17,6 +17,8 @@
         "@vitejs/plugin-vue": "^4.3.4",
         "cloudinary": "^1.40.0",
         "croppie": "^2.6.5",
+        "laravel-echo": "^1.15.3",
+        "pusher-js": "^8.3.0",
         "vue": "^3.3.4",
         "vue-loader": "^17.2.2"
     }

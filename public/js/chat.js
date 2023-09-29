@@ -1,3 +1,7 @@
+var pusher = new Pusher('ec1add393a7b068d96be', {
+    cluster: 'ap1'
+  });
+
 $(document).ready(function () {
     $("#chatForm").submit(function (e) {
         e.preventDefault();
