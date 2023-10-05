@@ -32,7 +32,7 @@
     <script type="text/javascript" src="{{ asset('js/resizeImage.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/interactButton.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/search.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/chat.js') }}"></script>
+
 
     {{-- Styles --}}
     <link rel="stylesheet" href="{{ url('css/followButton.css') }}">
@@ -50,12 +50,10 @@
 </head>
 
 <body>
-    <div id="app">
-        @include('layouts.sidebar')
-        <main class="py-4">
-            @yield('content')
-        </main>
-    </div>
+    @include('layouts.sidebar')
+    <main class="py-4">
+        @yield('content')
+    </main>
 
     <script type="text/javascript">
         $('ul.pagination').hide();
@@ -71,6 +69,7 @@
             });
         });
     </script>
+
 
 </body>
 
