@@ -1,3 +1,3 @@
-<div class="bubble left">
-    <p>message</p>
+<div class="message" id="other">
+   {{ $message }}
 </div>

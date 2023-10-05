@@ -69,7 +69,8 @@ Route::get('/search', [SearchController::class, 'search']);
 Route::get('/chat', [ChatsController::class, 'index'])->name('chat.index');
 Route::get('/chat/{user}/create', [ChatsController::class, 'createChat']);
 Route::get('/chat/load/{conversation}', [ChatsController::class, 'loadChat'])->name('chat.show');
-Route::post('/chat/{conversation}/send', [ChatsController::class, 'sendMessage']);
+Route::post('/chat/send', [ChatsController::class, 'sendMessage']);
+Route::post('/chat/receive', [ChatsController::class, 'receiveMessage']);
 
 //notification
 Route::get('/notifications', [App\Http\Controllers\NotificationController::class, 'index'])->name('notifications.index');

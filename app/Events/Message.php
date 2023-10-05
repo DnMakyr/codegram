@@ -7,23 +7,27 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-
-class Messages implements ShouldBroadcast
+class Message implements ShouldBroadcastNow
 {
-    public $username;
-    protected $message;
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public $message; 
+    public $userId; 
+    public $conversationId;
     /**
      * Create a new event instance.
      */
-    public function __construct($username, $message)
+    public function __construct($message, $userId, $conversationId)
     {
         //
-        $this->username = $username;
         $this->message = $message;
+
+        $this->userId = $userId;
+
+        $this->conversationId = $conversationId;
     }
 
     /**
@@ -34,7 +38,7 @@ class Messages implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('chat'),
+            new Channel('channel-'. $this->conversationId),
         ];
     }
     public function broadcastAs()

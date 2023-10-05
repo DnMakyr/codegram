@@ -7,6 +7,7 @@ use App\Models\Message;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Events\Message as MessageEvent;
 
 class ChatsController extends Controller
 {
@@ -45,18 +46,25 @@ class ChatsController extends Controller
     public function loadChat(Conversation $conversation)
     {
         $conversationId = $conversation->id;
-        $replier = User::find($conversation->participant_2);
-        $messages = Message::where('conversation_id', $conversationId)->with('user')->get();
-        $conversation_id = $conversationId;
-        return view('chat.show', compact('messages', 'conversation_id', 'replier'));
+        if($conversation->participant_1 == Auth::user()->id){
+            $replier = User::find($conversation->participant_2);
+        }
+        else{
+            $replier = User::find($conversation->participant_1);
+        }
+        $messages = Message::where('conversation_id', $conversationId)->with('user')->paginate(30);
+        return view('chat.show', compact('messages', 'conversationId', 'replier'));
     }
     public function sendMessage(Request $request)
     {
-        $message = new Message();
-        $message->conversation_id = request('conversation_id');
-        $message->sender = Auth::user()->id;
-        $message->message = $request->get('message');
-        $message->save();
-        return redirect()->back();
+        $userId = Auth::user()->id;
+        $conversationId = $request->conversation_id;
+        $message = $request->message;
+        broadcast(new MessageEvent($message, $userId, $conversationId))->toOthers();
+        return view('chat.broadcast', compact('message'));
+    }
+    public function receiveMessage(Request $request)
+    {
+        return view('chat.receiver', ['message' => $request->get('message')]);
     }
 }

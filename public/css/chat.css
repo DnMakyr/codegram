@@ -1,11 +1,17 @@
-.bubble {
+#self {
     background-color: #1877f2;
     max-width: 30%; /* Adjust the maximum width of the message bubble */
-    padding: 10px;
+    padding: 2px 10px;
     margin: 5px;
-    border-radius: 18px;
+    border-radius: 25px;
     word-wrap: break-word;
+    /* float: right; Remove this line to stack messages vertically */
+    height: auto;
+    color: white; /* Text color for user's own messages */
+    display: flex;
+    align-self: flex-end; /* Right-align user's own messages */
 }
+
 .left {
     float: left;
     height: auto;
@@ -18,14 +24,30 @@
     overflow-y: auto;
     height: 88vh;
 }
-.self { /* Your preferred background color */
-    color: white; /* Text color for user's own messages */
-    display: flex; /* Right-align user's own messages */
+/* .self {
+    float: right;
+    height: auto;
+    color: white; 
+    display: flex; 
     flex-direction: row-reverse;
-}
+} */
 
 /* Styling for other users' messages */
-.other {
+#other {
     color: white;
     align-self: flex-start; /* Left-align other users' messages */
+    background-color: #1877f2;
+    max-width: 30%; /* Adjust the maximum width of the message bubble */
+    padding: 2px 10px;
+    margin: 5px;
+    border-radius: 25px;
+    word-wrap: break-word;
+    height: auto;
+}
+.messages {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
 }
