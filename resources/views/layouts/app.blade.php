@@ -32,6 +32,7 @@
     <script type="text/javascript" src="{{ asset('js/resizeImage.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/interactButton.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/search.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/sidebarNotify.js') }}"></script>
 
 
     {{-- Styles --}}
@@ -50,6 +51,8 @@
 </head>
 
 <body>
+    @include('sweetalert::alert')
+
     @include('layouts.sidebar')
     <main class="py-4">
         @yield('content')

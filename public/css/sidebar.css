@@ -52,8 +52,10 @@ div.items {
     height: 48px;
     padding: 12px;
     background-color: #f8fafc;
+    text-align: center;
 }
 .sidebar a {
+    user-select: none;
     color: black;
     text-decoration: none;
     font-size: 16px;
@@ -62,10 +64,14 @@ div.items {
         sans-serif;
 }
 .items:hover {
-    filter: brightness(80%);
+    filter: brightness(92%);
+    color: rgb(212, 65, 65) !important;
     border-style: initial;
     border-radius: 5px;
+    transition: 0.3s;
+    transform: scale(1.05);
 }
+
 #icon {
     margin: 30px 0 30px 0;
 }
@@ -86,7 +92,7 @@ div.items {
         Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
         sans-serif;
 }
-.nav-auth#logout{
+.nav-auth#logout {
     position: fixed;
     bottom: 0;
     margin-bottom: 20px;
@@ -98,4 +104,38 @@ span.notification-count {
     background-color: #c73947d7;
     color: white;
     font-weight: bold;
+}
+
+/* Style for the new notification sidebar */
+#notificationSidebar {
+    position: fixed;
+    top: 0;
+    padding-left: 10px;
+    padding-top: 57px;
+    padding-right: 10px;
+    left: 210px; /* Adjust the position to place it next to the main sidebar */
+    width: 250px; /* Adjust the width as needed */
+    height: 100%;
+    background-color: #fff; /* Set the background color as desired */
+    z-index: 998; /* Ensure it's above other content but behind the main sidebar */
+    /* transition: left 0.3s ease-in-out; */
+    transition: width 2s;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.327); /* Add shadow if needed */
+}
+#notificationSidebar div.card:hover{
+    transform: scale(1.05);
+    transition: 0.5s;
+}
+
+/* Style for the button that opens the notification sidebar */
+#openNotifications {
+    cursor: pointer;
+}
+
+/* Adjust the position of the button as needed */
+.isActive {
+    font-weight: bold !important;
+    color: rgb(212, 65, 65) !important;
+    border-style: initial;
+    border-radius: 5px;
 }

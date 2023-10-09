@@ -10,7 +10,6 @@ $(function () {
                 _token: $("input[name='_token']").val(),
             },
             success: function (response) {
-                console.log(postId);
                 reload(postId);
             },
             error: function (error) {

@@ -73,4 +73,4 @@ Route::post('/chat/send', [ChatsController::class, 'sendMessage']);
 Route::post('/chat/receive', [ChatsController::class, 'receiveMessage']);
 
 //notification
-Route::get('/notifications', [App\Http\Controllers\NotificationController::class, 'index'])->name('notifications.index');
+Route::get('/readnotification', [App\Http\Controllers\NotificationController::class, 'readNotification']);

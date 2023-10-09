@@ -6,9 +6,13 @@ use Illuminate\Http\Request;
 
 class NotificationController extends Controller
 {
-    public function index(){
-        $notifications = auth()->user()->notifications;
-        $notifications->markAsRead();
-        return view('notifications.index', compact('notifications'));
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    public function readNotification()
+    {
+        auth()->user()->unreadNotifications->markAsRead();
+        return redirect()->back();
     }
 }

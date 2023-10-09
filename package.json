@@ -14,6 +14,7 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "@pusher/push-notifications-web": "^1.1.0",
         "@vitejs/plugin-vue": "^4.3.4",
         "cloudinary": "^1.40.0",
         "croppie": "^2.6.5",
@@ -21,6 +22,7 @@
         "jscroll": "^2.4.1",
         "laravel-echo": "^1.15.3",
         "pusher-js": "^8.3.0",
+        "toastify-js": "^1.12.0",
         "vue": "^3.3.4",
         "vue-loader": "^17.2.2"
     }
