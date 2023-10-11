@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NotificationEvent;
 use App\Models\Post;
 use App\Notifications\LikeNotification;
 use Illuminate\Http\Request;
@@ -23,6 +24,7 @@ class LikeReactController extends Controller
             // If not, like the post
             $user->like($post);
             $post->user->notify(new LikeNotification($user, $post));
+            broadcast(new NotificationEvent($user, $post, "like"))->toOthers();
         }
         else {
             // If yes, remove the like

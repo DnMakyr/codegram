@@ -31,10 +31,9 @@
                                     class="text-dark">{{ $post->user->username }}</span></a></span>{{ $post->caption }}
                     </p>
                 </div>
-                <div id="comments-container-{{ $post->id }}">
-
+                <div id="comments-container-{{ $post->id }}" style="max-height: 80vh ;overflow-y: auto">
                     @foreach ($post->comments as $comment)
-                        <div class="comment d-flex mb-2">
+                        <div class="comment d-flex mb-2" >
                             <a><img src="/storage/{{ $comment->user->profile->image }}" class="rounded-circle me-2"
                                     style="width: 32px; height: 32px; object-fit: cover"></a>
                             <a class="text-dark" href="/profile/{{ $comment->user->id }}"
@@ -44,7 +43,7 @@
 
                             {{ $comment->content }}
                             @if ($comment->user_id === auth()->user()->id || $post->user->id === auth()->user()->id)
-                                <div class="dropdown" style="position: absolute;
+                                <div class="dropdown" style="position: -webkit-sticky;
                             right: 0;">
                                     <img src="{{ asset('icons/more.png') }}" class="dropdown-toggle" type="button"
                                         data-bs-toggle="dropdown" aria-expanded="false" alt="">
@@ -53,14 +52,13 @@
                                                 href="/comment/{{ $comment->id }}/edit">Edit</a>
                                         </li>
                                         <li><a class="comment-action dropdown-item delete-comment-link"
-                                                data-comment-id="{{ $comment->id }}">Delete</a>
+                                                data-comment-id="{{ $comment->id }}" data-post-id="{{$post->id}}">Delete</a>
                                         </li>
                                     </ul>
                                 </div>
                             @endif
                         </div>
                     @endforeach
-
                 </div>
                 <div class="interaction">
                     <form class="commentForm" method="POST" autocomplete="off">

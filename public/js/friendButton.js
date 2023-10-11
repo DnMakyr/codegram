@@ -1,3 +1,4 @@
+
 $(function () {
     $(document).on("click", ".unfriendOption", function (e) {
         e.preventDefault();
@@ -5,7 +6,7 @@ $(function () {
         var friendName = $(this).data("friend-name");
         if (confirm(`Are you sure you want to unfriend ${friendName}?`)) {
             $.ajax({
-                type: "post",
+                type: "get",
                 url: `/unfriend/${friendId}`,
                 data: {
                     _token: $("input[name='_token']").val(), // Include CSRF token
@@ -21,7 +22,7 @@ $(function () {
             });
         }
     });
-    function loadFollow(){
+    function loadFollow() {
         const followButton = "#followButton";
         $(followButton).html("");
         $(followButton).load(location.href + " " + followButton);
@@ -41,7 +42,7 @@ $(function () {
                 _token: $("input[name='_token']").val(), // Include CSRF token
             },
             success: function (response) {
-                console.log(response);
+                pusher.subscribe("user." + friendId);
                 loadButton(friendId);
                 loadFollow();
             },
@@ -61,7 +62,6 @@ $(function () {
                 _token: $("input[name='_token']").val(), // Include CSRF token
             },
             success: function (response) {
-                console.log(response);
                 loadButton(friendId);
                 loadFollow();
             },

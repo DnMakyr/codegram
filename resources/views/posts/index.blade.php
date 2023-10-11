@@ -26,6 +26,7 @@
                                         </div>
                                         <div class="mt-1" id="likeContainer-{{ $post->id }}">
                                             <button class="btn likeButton" data-post-id="{{ $post->id }}"
+                                                data-user-id={{ $post->user->id }}
                                                 status="{{ $liked[$post->id] ? 'liked' : 'not-liked' }}">
                                                 @if (!$liked[$post->id])
                                                     <img src="{{ asset('icons/heart.png') }}" alt="">
@@ -74,7 +75,8 @@
                                                                             data-post-id="{{ $post->id }}">Edit</a>
                                                                     </li>
                                                                     <li><a class="comment-action dropdown-item delete-comment-link"
-                                                                            data-comment-id="{{ $comment->id }}">Delete</a>
+                                                                            data-comment-id="{{ $comment->id }}"
+                                                                            data-post-id="{{ $post->id }}">Delete</a>
                                                                     </li>
                                                                 </ul>
                                                             </div>
@@ -90,6 +92,7 @@
                                                     placeholder="Say something..." name="content" autofocus>
                                                 <input type="hidden" id="post-id{{ $post->id }} " name="postId"
                                                     value="{{ $post->id }}">
+                                                <input type="hidden" name="userId" value={{ $post->user->id }}>
                                             </form>
                                         </div>
                                     </div>

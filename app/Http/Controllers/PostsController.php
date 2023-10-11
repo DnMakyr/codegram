@@ -34,7 +34,6 @@ class PostsController extends Controller
             $liked[$post->id] = auth()->user()->hasLiked($post);
         }
 
-
         return view('posts.index', compact('posts', 'suggests', 'comments', 'liked'));
     }
     //

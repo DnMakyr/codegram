@@ -10,15 +10,16 @@ use Illuminate\Notifications\Notification;
 class CommentNotification extends Notification
 {
     use Queueable;
-    public $user, $post;
+    public $user, $post, $comment;
     /**
      * Create a new notification instance.
      */
-    public function __construct($user, $post)
+    public function __construct($user, $post, $comment)
     {
         //
         $this->user = $user;
         $this->post = $post;
+        $this->comment = $comment;
     }
 
     /**
@@ -44,6 +45,7 @@ class CommentNotification extends Notification
             'post_id'=> $this->post->id,
             'post_caption'=> $this->post->caption,
             'type'=> 'comment',
+            'comment_content'=> $this->comment->content,
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NotificationEvent;
 use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
@@ -31,8 +32,8 @@ class CommentsController extends Controller
         $comment->save();
         $post = Post::find($postId);
         $user = User::find($post->user_id);
-        $user->notify(new CommentNotification(auth()->user(), $post));
-
+        $user->notify(new CommentNotification(auth()->user(), $post, $comment));
+        broadcast(new NotificationEvent(auth()->user(), $post, "comment"))->toOthers();
         // Redirect back to the post or wherever you want
         return redirect()->back();
     }
