@@ -10,18 +10,19 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class NotificationEvent implements ShouldBroadcast
+class FriendEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-
     /**
      * Create a new event instance.
      */
-    public $sender, $post, $action;
-    public function __construct($sender, $post, $action)
+    public $sender, $receiver, $action; 
+
+    public function __construct($sender, $receiver, $action)
     {
+        //
         $this->sender = $sender;
-        $this->post = $post;
+        $this->receiver = $receiver;
         $this->action = $action;
     }
 
@@ -33,7 +34,7 @@ class NotificationEvent implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return [
-            new Channel('user.'.$this->post->user_id),
+            new Channel('user.'.$this->receiver->id),
         ];
     }
     public function broadcastAs()

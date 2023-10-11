@@ -1,9 +1,10 @@
 import './bootstrap';
 import './croppie';
-import './chat.js';
+import './realtimeFunctions';
 import { createApp } from 'vue';
 import Chat from './components/Chat.vue';
 import ChatView from './components/ChatView.vue';
+import Pusher from 'pusher-js';
 const app = createApp({
     components: {
         Chat,

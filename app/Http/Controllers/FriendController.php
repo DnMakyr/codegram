@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\FriendEvent;
 use App\Models\User;
 use App\Notifications\AcceptNotification;
 use Illuminate\Http\Request;
@@ -21,6 +22,7 @@ class FriendController extends Controller
         if (!auth()->user()->following->contains($user->profile)) {
             auth()->user()->following()->toggle($user->profile);
         }
+        broadcast(new FriendEvent(auth()->user(), $user, 'friend'))->toOthers();
         return redirect()->back();
     }
     public function accept(User $user)

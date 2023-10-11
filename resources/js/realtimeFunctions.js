@@ -1,19 +1,11 @@
 import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
 import Pusher from "pusher-js";
-window.Pusher = Pusher;
-
-Pusher.logToConsole = true;
-var pusher = new Pusher("ec1add393a7b068d96be", {
-    cluster: "ap1",
-    useTLS: true,
-});
-const notiChannel = pusher.subscribe("notification-channel");
+import { event } from "jquery";
 
 //Post Comment
 $(function () {
-    // Attach a submit event handler to the form
-    $(".commentForm").submit(function (event) {
+    $(".commentForm").on("submit", function (event) {
         // Prevent the default form submission
         event.preventDefault();
 
@@ -23,6 +15,7 @@ $(function () {
         // Get the values from the form inputs
         var postId = form.find('input[name="postId"]').val();
         var content = form.find('input[name="content"]').val();
+        let userId = form.find('input[name="userId"]').val();
 
         // Create a data object to send with the AJAX request
         var formData = {
@@ -34,15 +27,15 @@ $(function () {
         // Send an AJAX POST request to your server to save the data
         $.ajax({
             type: "POST",
-            url: "/comment", // Replace with the actual URL to save the data
+            url: "/comment",
             data: formData,
+            headers: {
+                "X-Socket-Id": pusher.connection.socket_id,
+            },
             success: function (response) {
-                // Handle the success response here, if needed
                 console.log("Data saved successfully");
-                // Clear the content of the specific comment form
+                pusher.subscribe(`user.${userId}`);
                 form.find('input[name="content"]').val("");
-
-                // Reload comments for the specific post
                 loadComments(postId);
             },
             error: function (error) {
@@ -53,15 +46,18 @@ $(function () {
     });
 });
 // Bind to an event on the channel
-notiChannel.bind("notification", function (data) {
+channel.bind("notification", function (data) {
     if (data.action == "comment") {
         Toastify({
-            text: "Notification: "+data.sender.username+" commented on your post!",
+            text:
+                "" +
+                data.sender.username +
+                " commented on your post!",
             destination: "/p/" + data.post.id,
             newWindow: true,
             close: true,
             duration: 3000,
-            gravity: "top",
+            gravity: "bottom",
             position: "right",
             style: {
                 background: "linear-gradient(to right, #00b09b, #96c93d)",
@@ -70,40 +66,88 @@ notiChannel.bind("notification", function (data) {
             },
             stopOnFocus: true,
         }).showToast();
-    }
-    else {
+    } else if (data.action == "like") {
         Toastify({
-            text: "Notification: " +data.sender.username+" liked your post!",
+            text: "" + data.sender.username + " liked your post!",
             destination: "/p/" + data.post.id,
             newWindow: true,
             close: true,
-            duration: 20000,
-            gravity: "top",
+            duration: 4000,
+            gravity: "bottom",
             position: "right",
             style: {
-                background: "linear-gradient(to right, #00b09b, #96c93d)",
+                background: "linear-gradient(to right, #22c1c3, #fdbb2d)",
                 color: "#fff",
                 position: "fixed",
             },
             stopOnFocus: true,
         }).showToast();
+        channel.subscribe(`user.${data.sender.id}`);
+    }
+    else {
+        Toastify({
+            text: "" + data.sender.username + " want to be your friend!",
+            destination: "/profile/" + data.sender.id,
+            newWindow: true,
+            close: true,
+            duration: 4000,
+            gravity: "bottom",
+            position: "right",
+            style: {
+                background: "linear-gradient(to right, #22c1c3, #fdbb2d)",
+                color: "#fff",
+                position: "fixed",
+            },
+            stopOnFocus: true,
+        }).showToast();
+        channel.subscribe(`user.${data.sender.id}`);
     }
 });
 
+//Like Post
+$(function () {
+    $(document).on("click", ".likeButton", function (e) {
+        let postId = $(this).data("post-id");
+        let userId = $(this).data("user-id");
+        e.preventDefault();
+        $.ajax({
+            type: "GET",
+            url: `/like/${postId}`,
+            data: {
+                _token: $("input[name='_token']").val(),
+            },
+            headers: {
+                "X-Socket-Id": pusher.connection.socket_id,
+            },
+            success: function (response) {
+                pusher.subscribe(`user.${userId}`)
+                reload(postId);
+            },
+            error: function (error) {
+                console.error(error.responseJSON.message);
+            },
+        });
+    });
+});
+function reload(postId) {
+    let buttonId = "#likeContainer-" + postId;
+    let likeId = "#likeCount-" + postId;
+    $(buttonId).load(location.href + " " + buttonId);
+    $(likeId).load(location.href + " " + likeId);
+}
 
+//Realtime Chat
 
-//Connect to Pusher
 const connectButton = document.querySelector(".connect-button");
-// Get the channel name from the data attribute
+
 connectButton.addEventListener("click", function () {
     const channelId = connectButton.getAttribute("data-conversation-id");
-    // Subscribe to the Pusher channel
     const channel = pusher.subscribe(`channel-${channelId}`);
-    // You can add event listeners to this channel to handle incoming messages or events
+
     channel.bind("pusher:subscription_succeeded", function (members) {
-        // alert("successfully connected!");
         connectButton.textContent = "Connected";
     });
+
     channel.bind("message", (data) => {
         $.post("/chat/receive", {
             _token: $("input[name='_token']").val(),
@@ -112,7 +156,6 @@ connectButton.addEventListener("click", function () {
             $(".messages > .message").last().after(res);
             $(document).scrollTop($(document).height());
             console.log(res);
-            // alert("successfully received!\n" + data.message);
         });
     });
 });
@@ -121,7 +164,6 @@ connectButton.addEventListener("click", function () {
 const returnButton = document.querySelector(".return-button");
 returnButton.addEventListener("click", function () {
     const channelId = returnButton.getAttribute("data-conversation-id");
-    // Unsubscribe to the Pusher channel
     pusher.unsubscribe(`channel-${channelId}`);
     window.location.href = "/chat";
 });
@@ -153,3 +195,24 @@ $("#chatForm").on("submit", function (e) {
         },
     });
 });
+
+//reload notification
+function loadNotifications() {
+    event.preventDefault();
+    $.ajax({
+        type: "GET",
+        url: `/`,
+        data: {
+            _token: $("input[name='_token']").val(),
+        },
+        success: function (response) {
+            let containerId = "#notificationSidebar";
+            $(containerId).load(location.href + " " + containerId);
+            let countSpan = ".notification-count";
+            $(countSpan).load(location.href + " " + countSpan);
+        },
+        error: function (error) {
+            console.error(error.responseJSON.message);
+        },
+    });
+}

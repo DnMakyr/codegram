@@ -24,13 +24,13 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer" />
     <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
     <script type="text/javascript" src="{{ asset('js/followButton.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/friendButton.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/comment.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/resizeImage.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/interactButton.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/search.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/sidebarNotify.js') }}"></script>
 
@@ -45,18 +45,32 @@
     <link rel="stylesheet" href="{{ url('css/likeButton.css') }}">
     <link rel="stylesheet" href="{{ url('css/chat.css') }}">
     <link rel="stylesheet" href="{{ url('css/notification.css') }}">
+
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    @auth
+    <script>
+        var pusher = new Pusher("ec1add393a7b068d96be", {
+            cluster: "ap1",
+            useTLS: true,
+        });
+        Pusher.logToConsole = true;
+        // Example: Subscribe to a channel and listen for events
+        const userId = {{ auth()->user()->id }}; // Assuming you're using Blade templates
+        const channel = pusher.subscribe(`user.${userId}`);
+    </script>
+    @endauth
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
 </head>
 
 <body>
-    @include('sweetalert::alert')
 
     @include('layouts.sidebar')
     <main class="py-4">
         @yield('content')
     </main>
+
+
 
     <script type="text/javascript">
         $('ul.pagination').hide();
@@ -72,7 +86,6 @@
             });
         });
     </script>
-
 
 </body>
 

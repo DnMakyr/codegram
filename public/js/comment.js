@@ -1,7 +1,7 @@
 $(document).on("click", ".delete-comment-link", function (e) {
     e.preventDefault();
     var commentId = $(this).data("comment-id");
-    var postId = $(this).closest(".card").find('input[name="postId"]').val(); // Get the post ID associated with the comment
+    var postId = $(this).data("post-id"); // Get the post ID associated with the comment
 
     if (confirm("Are you sure you want to delete this comment?")) {
         $.ajax({
