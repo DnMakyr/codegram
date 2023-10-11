@@ -34,7 +34,7 @@ $(function () {
             },
             success: function (response) {
                 console.log("Data saved successfully");
-                pusher.subscribe(`user.${userId}`);
+                // pusher.subscribe(`user.${userId}`);
                 form.find('input[name="content"]').val("");
                 loadComments(postId);
             },
@@ -82,7 +82,6 @@ channel.bind("notification", function (data) {
             },
             stopOnFocus: true,
         }).showToast();
-        channel.subscribe(`user.${data.sender.id}`);
     }
     else {
         Toastify({
@@ -120,7 +119,7 @@ $(function () {
                 "X-Socket-Id": pusher.connection.socket_id,
             },
             success: function (response) {
-                pusher.subscribe(`user.${userId}`)
+                // pusher.subscribe(`user.${userId}`);
                 reload(postId);
             },
             error: function (error) {
