@@ -27,12 +27,13 @@
         crossorigin="anonymous"
         referrerpolicy="no-referrer" />
     <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
-    <script type="text/javascript" src="{{ asset('js/followButton.js') }}"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    {{-- <script type="text/javascript" src="{{ asset('js/followButton.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/friendButton.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/comment.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/resizeImage.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/search.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/sidebarNotify.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/sidebarNotify.js') }}"></script> --}}
 
 
     {{-- Styles --}}
@@ -45,9 +46,11 @@
     <link rel="stylesheet" href="{{ url('css/likeButton.css') }}">
     <link rel="stylesheet" href="{{ url('css/chat.css') }}">
     <link rel="stylesheet" href="{{ url('css/notification.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" />
 
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-    @auth
+    @inertiaHead
+    {{-- @auth
     <script>
         var pusher = new Pusher("ec1add393a7b068d96be", {
             cluster: "ap1",
@@ -59,13 +62,13 @@
         const channel = pusher.subscribe(`user.${userId}`);
     </script>
     @endauth
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}"> --}}
 
 </head>
 
 <body>
-
-    @include('layouts.sidebar')
+    @inertia
+    {{-- @include('layouts.sidebar')
     <main class="py-4">
         @yield('content')
     </main>
@@ -85,7 +88,7 @@
                 }
             });
         });
-    </script>
+    </script> --}}
 
 </body>
 
