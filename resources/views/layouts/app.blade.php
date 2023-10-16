@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>CodeGram</title>
+    <title>Codegram</title>
     <link rel="icon" href="/svg/codegram.svg" type="image/icon type">
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">

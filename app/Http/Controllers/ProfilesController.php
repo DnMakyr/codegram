@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Inertia\Inertia;
 use Intervention\Image\Facades\Image;
 
 class ProfilesController extends Controller
@@ -73,5 +74,12 @@ class ProfilesController extends Controller
         return redirect("/profile/{$user->id}");
     }
     
-    
+    public function show(User $user)
+    {   
+        
+        return Inertia::render('Profile/User',[
+            'user' => $user,
+
+        ]);
+    }
 }

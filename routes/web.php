@@ -4,7 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-
+use App\Http\Controllers\ProfilesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,5 +34,6 @@ Route::middleware('auth')->group(function () {
     Route::patch('/account', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/account', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
 require __DIR__.'/auth.php';
+
+Route::get('/profile/{user}', [ProfilesController::class, 'show'])->name('profile.show');
