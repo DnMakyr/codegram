@@ -1,4 +1,4 @@
-<nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse ">
+<nav id="sidebarMenu" class="collapse d-lg-block sidebar ">
     <div class="position-sticky">
         <div id="icon">
             <a class=" d-flex ps-3 text-dark" href="{{ url('/') }}" style="text-decoration: none">
