@@ -1,6 +1,6 @@
 <script setup>
 import SideNavLink from "./SideNavLink.vue";
-import {Link} from "@inertiajs/vue3";
+import { Link } from "@inertiajs/vue3";
 </script>
 
 <template>
@@ -18,62 +18,60 @@ import {Link} from "@inertiajs/vue3";
                     class="ps-2 pt-1"
                     style="font-size: 20px; font-weight: bold"
                 >
-                    CodeGram
+                    Codegram
                 </div>
             </div>
 
-            <SideNavLink
-                :src="'/icons/home.png'"
-                :href="'/dashboard'"
-                :class="'me-3'"
-                >Home</SideNavLink
+            <SideNavLink :href="'/dashboard'"
+                ><img src="/icons/home.png" alt="home" class="me-3" />Home</SideNavLink
             >
 
-            <SideNavLink src="/icons/direction.png" href="/explore" class="me-3"
-                >Explore</SideNavLink
+            <SideNavLink :href="'/explore'"
+                ><img
+                    src="/icons/direction.png"
+                    alt="explore"
+                    class="me-3"
+                />Explore</SideNavLink
             >
 
-            <SideNavLink
-                :src="'/icons/search.png'"
-                :href="'/search'"
-                :class="'me-3'"
-                >Search</SideNavLink
+            <SideNavLink :href="'/search'"
+                ><img src="/icons/search.png" alt="search" class="me-3" />Search</SideNavLink
             >
 
-            <SideNavLink
-                :src="'/icons/message.png'"
-                :href="'/chat'"
-                :class="'me-3'"
-                >Chat</SideNavLink
+            <SideNavLink :href="'/chat'"
+                ><img src="/icons/message.png" alt="chat" class="me-3" />Chat</SideNavLink
             >
 
-            <SideNavLink
-                :src="'/icons/heart.png'"
-                :href="'/notification'"
-                :class="'me-3'"
-                >Notification</SideNavLink
+            <SideNavLink :href="'/notification'"
+                ><img
+                    src="/icons/heart.png"
+                    alt="notification"
+                    class="me-3"
+                />Notification</SideNavLink
             >
 
-            <SideNavLink
-                :src="'/icons/create.png'"
-                :href="'/create'"
-                :class="'me-3'"
-                >Create</SideNavLink
+            <SideNavLink :href="'/create'"
+                ><img src="/icons/create.png" alt="create" class="me-3" />Create</SideNavLink
             >
 
             <SideNavLink
                 :src="$page.props.auth.profileImage"
                 :href="route('profile.show', $page.props.auth.user.id)"
-                :style="'height: 24px; width: 24px; object-fit: cover'"
-                :class="'rounded-full me-3'"
+                ><img
+                    :src="$page.props.auth.profileImage"
+                    
+                    class="rounded-full me-3"
+                    style="max-width: 24px; object-fit: cover"
                 >Profile</SideNavLink
             >
+
             <SideNavLink
-                :src="'/icons/logout.png'"
                 :href="route('logout')"
-                :class="'me-3'"
                 method="post"
+                as="button"
+                style="position: absolute; bottom: 0; margin-bottom: 5px;"
             >
+                <img src="/icons/logout.png" alt="" class="me-3" />
                 Logout
             </SideNavLink>
         </div>

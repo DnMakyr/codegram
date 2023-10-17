@@ -5,27 +5,14 @@ defineProps({
         type: String,
         required: true,
     },
-    src: {
-        type: String,
-        required: true,
-    },
-    class: {
-        type: String,
-        required: false,
-    },
-    style: {
-        type: String,
-        required: false,
-    },
 });
 </script>
 
 <template>
-    <nav>
-        <Link class="items" :href="href">
-            <img :src="src" :class="class" :style="style" /> <slot />
+
+        <Link class="items" :href="href" :active="">
+            <slot />
         </Link>
-    </nav>
 </template>
 
 <style scoped>
